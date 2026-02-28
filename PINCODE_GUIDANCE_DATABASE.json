@@ -1,0 +1,771 @@
+{
+  "metadata": {
+    "version": "2.0",
+    "lastUpdated": "2026-02-28",
+    "source": "Government Guidance Values + Market Research",
+    "currency": "INR",
+    "units": "₹/sqft (unless noted as per acre)",
+    "methodology": "Guidance values as base prices with market multipliers"
+  },
+  "bangalore": {
+    "560001": {
+      "pinCode": "560001",
+      "locality": "Lavelle Road / MG Road",
+      "city": "Bangalore",
+      "tier": "Ultra-Premium",
+      "guidanceValue": {
+        "mgroadMin": 12000,
+        "mgroadMax": 30000,
+        "lavelleMin": 20000,
+        "lavelleMax": 25000,
+        "avg": 22000
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 22000,
+          "guidanceMax": 40000,
+          "marketMultiplier": 1.1,
+          "notes": "Central business district, premium commercial hub"
+        },
+        "plot": {
+          "guidanceMin": 12000,
+          "guidanceMax": 30000,
+          "marketMultiplier": 1.2,
+          "notes": "Very high land value in CBD"
+        },
+        "commercial": {
+          "guidanceMin": 12000,
+          "guidanceMax": 30000,
+          "marketMultiplier": 1.5,
+          "notes": "Premium commercial hub with high demand"
+        }
+      }
+    },
+    "560003": {
+      "pinCode": "560003",
+      "locality": "Malleshwaram",
+      "city": "Bangalore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 10000,
+        "max": 20000,
+        "avg": 15000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 15541,
+          "marketMax": 18000,
+          "marketMultiplier": 1.1,
+          "notes": "Well-established heritage area, stable premium market"
+        },
+        "plot": {
+          "guidanceMin": 10000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 1.15,
+          "notes": "Heritage area with stable appreciation"
+        }
+      }
+    },
+    "560010": {
+      "pinCode": "560010",
+      "locality": "Rajajinagar",
+      "city": "Bangalore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 10000,
+        "max": 20000,
+        "avg": 15000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 20000,
+          "marketMax": 22000,
+          "marketMultiplier": 1.3,
+          "notes": "High-value, well-connected locality"
+        },
+        "plot": {
+          "guidanceMin": 10000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 1.25,
+          "notes": "Well-established residential area"
+        }
+      }
+    },
+    "560011": {
+      "pinCode": "560011",
+      "locality": "Jayanagar",
+      "city": "Bangalore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 10000,
+        "max": 20000,
+        "avg": 15000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 16226,
+          "marketMax": 18000,
+          "marketMultiplier": 1.1,
+          "notes": "Stable premium market, established locality"
+        },
+        "plot": {
+          "guidanceMin": 10000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 1.15,
+          "notes": "Established residential with good connectivity"
+        }
+      }
+    },
+    "560025": {
+      "pinCode": "560025",
+      "locality": "Richmond Town",
+      "city": "Bangalore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 12000,
+        "max": 25000,
+        "avg": 18500
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 18000,
+          "marketMax": 30000,
+          "marketMultiplier": 1.15,
+          "notes": "Central location, old Bangalore elegance"
+        },
+        "plot": {
+          "guidanceMin": 12000,
+          "guidanceMax": 25000,
+          "marketMultiplier": 1.2,
+          "notes": "Prime central location with high demand"
+        }
+      }
+    },
+    "560034": {
+      "pinCode": "560034",
+      "locality": "Koramangala",
+      "city": "Bangalore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 10000,
+        "max": 20000,
+        "avg": 15000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 19828,
+          "marketMax": 22000,
+          "marketMultiplier": 1.3,
+          "notes": "20-50% higher than guidance value"
+        },
+        "plot": {
+          "guidanceMin": 10000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 1.35,
+          "notes": "High-demand commercial and residential area"
+        }
+      }
+    },
+    "560038": {
+      "pinCode": "560038",
+      "locality": "Indiranagar",
+      "city": "Bangalore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 10000,
+        "max": 20000,
+        "avg": 15000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 14150,
+          "marketMax": 25000,
+          "marketMultiplier": 1.4,
+          "notes": "Significant premium to guidance value"
+        },
+        "plot": {
+          "guidanceMin": 10000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 1.3,
+          "notes": "Well-established premium locality"
+        }
+      }
+    },
+    "560066": {
+      "pinCode": "560066",
+      "locality": "Whitefield",
+      "city": "Bangalore",
+      "tier": "Premium-Commercial",
+      "guidanceValue": {
+        "min": 5000,
+        "max": 20000,
+        "avg": 10000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 10103,
+          "marketMax": 13000,
+          "marketMultiplier": 1.2,
+          "notes": "IT hub with strong appreciation (8.7% annually)"
+        },
+        "plot": {
+          "guidanceMin": 5000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 1.5,
+          "notes": "Land: ₹60+ crore per acre. One of most expensive zones."
+        },
+        "commercial": {
+          "guidanceMin": 5000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 2.0,
+          "notes": "Commercial core/IT - highest demand"
+        }
+      }
+    },
+    "560080": {
+      "pinCode": "560080",
+      "locality": "Sadashivanagar",
+      "city": "Bangalore",
+      "tier": "Ultra-Premium",
+      "guidanceValue": {
+        "min": 20000,
+        "max": 25000,
+        "avg": 22500
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 32073,
+          "marketMax": 35000,
+          "marketMultiplier": 1.5,
+          "notes": "Ultra-premium locality"
+        },
+        "plot": {
+          "guidanceMin": 20000,
+          "guidanceMax": 25000,
+          "marketMultiplier": 1.4,
+          "notes": "Highly exclusive residential area"
+        }
+      }
+    },
+    "560098": {
+      "pinCode": "560098",
+      "locality": "Ideal Homes Township (RR Nagar)",
+      "city": "Bangalore",
+      "tier": "Mid-Premium",
+      "guidanceValue": {
+        "min": 5000,
+        "max": 7000,
+        "avg": 6000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 7650,
+          "marketMax": 9000,
+          "marketMultiplier": 1.3,
+          "notes": "Part of premium residential area on Mysore Road"
+        },
+        "plot": {
+          "guidanceMin": 5000,
+          "guidanceMax": 7000,
+          "marketMultiplier": 1.25,
+          "notes": "Developed township area"
+        }
+      }
+    },
+    "560099": {
+      "pinCode": "560099",
+      "locality": "Ramasagara",
+      "city": "Bangalore",
+      "tier": "Mid-Range",
+      "guidanceValue": {
+        "min": 4000,
+        "max": 6000,
+        "avg": 5000
+      },
+      "properties": {
+        "plot": {
+          "marketMin": 3380,
+          "marketMax": 4500,
+          "marketMultiplier": 0.8,
+          "notes": "Emerging area with growth potential"
+        },
+        "apartment": {
+          "marketMin": 6000,
+          "marketMax": 8000,
+          "marketMultiplier": 1.2,
+          "notes": "Mixed use area"
+        }
+      }
+    },
+    "560102": {
+      "pinCode": "560102",
+      "locality": "Ambalipura / HSR Layout",
+      "city": "Bangalore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 10000,
+        "max": 20000,
+        "avg": 15000
+      },
+      "properties": {
+        "apartment": {
+          "marketMin": 12050,
+          "marketMax": 15250,
+          "marketMultiplier": 1.0,
+          "notes": "Typically at or slightly above guidance value"
+        },
+        "plot": {
+          "guidanceMin": 10000,
+          "guidanceMax": 20000,
+          "marketMultiplier": 1.15,
+          "notes": "Premium residential layout"
+        }
+      }
+    },
+    "560067": {
+      "pinCode": "560067",
+      "locality": "Sadaramangala Industrial Area",
+      "city": "Bangalore",
+      "tier": "Commercial",
+      "guidanceValue": {
+        "min": 8000,
+        "max": 15000,
+        "avg": 11500
+      },
+      "properties": {
+        "commercial": {
+          "guidanceMin": 8000,
+          "guidanceMax": 15000,
+          "marketMultiplier": 1.1,
+          "notes": "Primarily industrial/commercial area"
+        }
+      }
+    }
+  },
+  "bangalore_periphery": {
+    "562112": {
+      "pinCode": "562112",
+      "locality": "Kanakapura Road (Periphery)",
+      "city": "Bangalore",
+      "tier": "Agricultural",
+      "guidanceValue": {
+        "min": 0.2,
+        "max": 1.7,
+        "unit": "crores per acre",
+        "notes": "Agricultural land pricing"
+      },
+      "properties": {
+        "agricultural": {
+          "marketMin": 0.2,
+          "marketMax": 1.7,
+          "unit": "crores per acre",
+          "marketMultiplier": 1.1,
+          "notes": "Developing periphery area"
+        }
+      }
+    },
+    "561203": {
+      "pinCode": "561203",
+      "locality": "Doddaballapura (Periphery)",
+      "city": "Bangalore",
+      "tier": "Agricultural",
+      "guidanceValue": {
+        "min": 1.0,
+        "max": 1.71,
+        "unit": "crores per acre",
+        "notes": "Agricultural land pricing"
+      },
+      "properties": {
+        "agricultural": {
+          "marketMin": 1.0,
+          "marketMax": 1.71,
+          "unit": "crores per acre",
+          "marketMultiplier": 1.05,
+          "notes": "Emerging agricultural area"
+        }
+      }
+    },
+    "562110": {
+      "pinCode": "562110",
+      "locality": "Devanahalli (Periphery)",
+      "city": "Bangalore",
+      "tier": "Agricultural",
+      "guidanceValue": {
+        "min": 1.0,
+        "max": 2.8,
+        "unit": "crores per acre",
+        "notes": "Agricultural land pricing"
+      },
+      "properties": {
+        "agricultural": {
+          "marketMin": 1.0,
+          "marketMax": 2.8,
+          "unit": "crores per acre",
+          "marketMultiplier": 1.15,
+          "notes": "Growing airport-adjacent area"
+        }
+      }
+    },
+    "562114": {
+      "pinCode": "562114",
+      "locality": "Hoskote (Periphery)",
+      "city": "Bangalore",
+      "tier": "Agricultural",
+      "guidanceValue": {
+        "min": 0.8,
+        "max": 3.0,
+        "unit": "crores per acre",
+        "notes": "Agricultural land pricing"
+      },
+      "properties": {
+        "agricultural": {
+          "marketMin": 0.8,
+          "marketMax": 3.0,
+          "unit": "crores per acre",
+          "marketMultiplier": 1.2,
+          "notes": "Developing logistics hub"
+        }
+      }
+    },
+    "562125": {
+      "pinCode": "562125",
+      "locality": "Sarjapur Road (Periphery)",
+      "city": "Bangalore",
+      "tier": "Agricultural",
+      "guidanceValue": {
+        "min": 10.58,
+        "max": 15.0,
+        "unit": "crores per acre",
+        "notes": "Agricultural land pricing (high value area)"
+      },
+      "properties": {
+        "agricultural": {
+          "marketMin": 10.58,
+          "marketMax": 15.0,
+          "unit": "crores per acre",
+          "marketMultiplier": 1.1,
+          "notes": "Premium periphery - IT corridor expansion"
+        }
+      }
+    }
+  },
+  "mysore": {
+    "570001": {
+      "pinCode": "570001",
+      "locality": "Mysore H.O., Devaraja Mohalla, Krishna Rajendra Circle",
+      "city": "Mysore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 5500,
+        "max": 6500,
+        "avg": 6000
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 5500,
+          "guidanceMax": 6500,
+          "marketMultiplier": 1.1,
+          "notes": "Central business area"
+        },
+        "plot": {
+          "guidanceMin": 3200,
+          "guidanceMax": 4500,
+          "marketMultiplier": 1.1,
+          "notes": "CBD location"
+        }
+      }
+    },
+    "570002": {
+      "pinCode": "570002",
+      "locality": "Gokulam Extension, Sri Krishnarajendra Mills",
+      "city": "Mysore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 5800,
+        "max": 6800,
+        "avg": 6300
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 5800,
+          "guidanceMax": 6800,
+          "marketMultiplier": 1.1,
+          "notes": "Well-developed commercial area"
+        },
+        "plot": {
+          "guidanceMin": 3500,
+          "guidanceMax": 5000,
+          "marketMultiplier": 1.15,
+          "notes": "Mixed use development"
+        }
+      }
+    },
+    "570009": {
+      "pinCode": "570009",
+      "locality": "Saraswathipuram",
+      "city": "Mysore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 6200,
+        "max": 7500,
+        "avg": 6850
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 6200,
+          "guidanceMax": 7500,
+          "marketMultiplier": 1.15,
+          "notes": "Premium locality with good connectivity"
+        },
+        "plot": {
+          "guidanceMin": 4200,
+          "guidanceMax": 6500,
+          "marketMultiplier": 1.2,
+          "notes": "High-demand premium area"
+        }
+      }
+    },
+    "570020": {
+      "pinCode": "570020",
+      "locality": "Yadavagiri, Brindavan Extension",
+      "city": "Mysore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 6800,
+        "max": 8200,
+        "avg": 7500
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 6800,
+          "guidanceMax": 8200,
+          "marketMultiplier": 1.2,
+          "notes": "Premium residential with good infrastructure"
+        },
+        "plot": {
+          "guidanceMin": 4800,
+          "guidanceMax": 7000,
+          "marketMultiplier": 1.25,
+          "notes": "Highly sought-after area"
+        }
+      }
+    },
+    "570024": {
+      "pinCode": "570024",
+      "locality": "Bannimantap",
+      "city": "Mysore",
+      "tier": "Budget",
+      "guidanceValue": {
+        "min": 4800,
+        "max": 5800,
+        "avg": 5300
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 4800,
+          "guidanceMax": 5800,
+          "marketMultiplier": 0.95,
+          "notes": "Budget-friendly residential area"
+        },
+        "plot": {
+          "guidanceMin": 2800,
+          "guidanceMax": 3800,
+          "marketMultiplier": 1.0,
+          "notes": "Affordable plots"
+        }
+      }
+    },
+    "570025": {
+      "pinCode": "570025",
+      "locality": "Vijayanagar",
+      "city": "Mysore",
+      "tier": "Mid-Range",
+      "guidanceValue": {
+        "min": 5400,
+        "max": 6800,
+        "avg": 6100
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 5400,
+          "guidanceMax": 6800,
+          "marketMultiplier": 1.05,
+          "notes": "Established mid-range residential"
+        },
+        "plot": {
+          "guidanceMin": 3400,
+          "guidanceMax": 4800,
+          "marketMultiplier": 1.1,
+          "notes": "Good value residential plots"
+        }
+      }
+    },
+    "570032": {
+      "pinCode": "570032",
+      "locality": "Ramakrishna Nagar",
+      "city": "Mysore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 6850,
+        "max": 8650,
+        "avg": 7750
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 7100,
+          "guidanceMax": 8500,
+          "marketMultiplier": 1.15,
+          "notes": "Premium residential neighborhood"
+        },
+        "plot": {
+          "guidanceMin": 6850,
+          "guidanceMax": 8650,
+          "marketMultiplier": 1.2,
+          "notes": "High-value premium plots"
+        }
+      }
+    },
+    "570035": {
+      "pinCode": "570035",
+      "locality": "JP Nagar",
+      "city": "Mysore",
+      "tier": "Premium",
+      "guidanceValue": {
+        "min": 6550,
+        "max": 7100,
+        "avg": 6825
+      },
+      "properties": {
+        "apartment": {
+          "guidanceMin": 6550,
+          "guidanceMax": 7100,
+          "marketMultiplier": 1.15,
+          "notes": "High appreciation premium area"
+        },
+        "plot": {
+          "guidanceMin": 3500,
+          "guidanceMax": 6500,
+          "marketMultiplier": 1.25,
+          "notes": "Premium location with high demand"
+        }
+      }
+    }
+  },
+  "mysore_periphery": {
+    "570_west": {
+      "pinCode": "570xxx",
+      "locality": "Mysore West (Belavadi, Koorgalli, Kadakola, Elavala, Huyilalu, Jayapura)",
+      "city": "Mysore",
+      "tier": "Agricultural/Industrial",
+      "guidanceValue": {
+        "min": 40,
+        "max": 80,
+        "unit": "₹/sqft",
+        "notes": "Agricultural land with government guidance"
+      },
+      "properties": {
+        "agricultural": {
+          "guidanceMin": 40,
+          "guidanceMax": 80,
+          "unit": "₹/sqft",
+          "marketMultiplier": 1.0,
+          "notes": "Dry and wet land classifications"
+        },
+        "industrial": {
+          "guidanceMin": 10000,
+          "guidanceMax": 10000,
+          "unit": "₹/sqft",
+          "marketMultiplier": 1.0,
+          "notes": "Industrial area guidance value"
+        },
+        "commercial": {
+          "guidanceMin": 70,
+          "guidanceMax": 90,
+          "unit": "₹/sqft",
+          "marketMultiplier": 1.0,
+          "notes": "Commercial (RR/NH/SH) guidance"
+        }
+      }
+    }
+  },
+  "distance_multipliers": {
+    "notes": "Applied within PIN code for intra-area variations",
+    "circles": {
+      "0_to_2km": {
+        "multiplier": 1.0,
+        "description": "CBD/Prime location within PIN code"
+      },
+      "2_to_5km": {
+        "multiplier": 0.90,
+        "description": "Good connectivity within PIN code"
+      },
+      "5_to_10km": {
+        "multiplier": 0.80,
+        "description": "Developing areas within PIN code"
+      },
+      "10plus_km": {
+        "multiplier": 0.70,
+        "description": "Periphery within same PIN code"
+      }
+    }
+  },
+  "property_type_adjustments": {
+    "notes": "Adjust base price based on specific property features",
+    "apartment": {
+      "1bhk": 0.85,
+      "2bhk": 1.0,
+      "3bhk": 1.15,
+      "4bhk": 1.3,
+      "luxury": 1.5
+    },
+    "plot": {
+      "corner": 1.15,
+      "regular": 1.0,
+      "irregular": 0.85,
+      "with_approved_building": 1.25
+    },
+    "villa": {
+      "2acre": 1.0,
+      "3acre": 1.15,
+      "5acre": 1.5,
+      "10acre": 2.0
+    }
+  },
+  "tier_definitions": {
+    "ultra_premium": {
+      "guidanceValue": "₹20,000+/sqft",
+      "examples": ["560001", "560080"],
+      "characteristics": "CBD locations, highest land value, premium commercial"
+    },
+    "premium": {
+      "guidanceValue": "₹10,000-20,000/sqft",
+      "examples": ["560034", "560066", "570035", "570009"],
+      "characteristics": "Well-established areas, good connectivity, high demand"
+    },
+    "mid_premium": {
+      "guidanceValue": "₹5,000-10,000/sqft",
+      "examples": ["560098", "560102"],
+      "characteristics": "Developing areas, emerging IT hubs, good growth potential"
+    },
+    "mid_range": {
+      "guidanceValue": "₹4,000-7,000/sqft",
+      "examples": ["560099", "570025"],
+      "characteristics": "Established residential, good value"
+    },
+    "budget": {
+      "guidanceValue": "<₹5,000/sqft",
+      "examples": ["570024"],
+      "characteristics": "Affordable residential, developing areas"
+    },
+    "commercial": {
+      "guidanceValue": "₹8,000-15,000/sqft",
+      "examples": ["560067"],
+      "characteristics": "Industrial and commercial zones"
+    },
+    "agricultural": {
+      "guidanceValue": "₹40-₹500/sqft or ₹0.2-15 crores/acre",
+      "examples": ["562112", "562110", "570_west"],
+      "characteristics": "Periphery areas, agricultural land, future development zones"
+    }
+  }
+}
