@@ -26,13 +26,9 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files from React frontend build
-const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'out');
-
-// Serve static files from Next.js export
-if (fs.existsSync(frontendBuildPath)) {
-  app.use(express.static(frontendBuildPath));
-}
+// Serve static files from public directory
+const publicPath = path.join(__dirname, '..', 'public');
+app.use(express.static(publicPath));
 
 // Email configuration (using test email - configure with real SMTP later)
 const emailTransporter = nodemailer.createTransport({
@@ -167,20 +163,10 @@ async function sendLeadNotification(leadData) {
 // ==========================================================================
 
 /**
- * Root endpoint - serve landing page if available, otherwise return API status
+ * Root endpoint - serve landing page
  */
 app.get('/', (req, res) => {
-  const indexPath = path.join(__dirname, '..', 'frontend', 'out', 'index.html');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.json({
-      status: 'online',
-      app: 'PropBot API',
-      version: '1.0.0',
-      message: 'Property Valuation API for Bangalore & Mysore'
-    });
-  }
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 /**
