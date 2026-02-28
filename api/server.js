@@ -158,6 +158,18 @@ async function sendLeadNotification(leadData) {
 // ==========================================================================
 
 /**
+ * Root endpoint
+ */
+app.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    app: 'PropBot API',
+    version: '1.0.0',
+    message: 'Property Valuation API for Bangalore & Mysore'
+  });
+});
+
+/**
  * Health check endpoint
  */
 app.get('/api/health', (req, res) => {
