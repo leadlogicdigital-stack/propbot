@@ -163,13 +163,6 @@ async function sendLeadNotification(leadData) {
 // ==========================================================================
 
 /**
- * Root endpoint - serve landing page
- */
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-});
-
-/**
  * Health check endpoint
  */
 app.get('/api/health', (req, res) => {
