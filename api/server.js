@@ -42,6 +42,9 @@ const emailTransporter = nodemailer.createTransport({
 // In-memory lead storage (replace with database later)
 const leads = {};
 
+// In-memory agent submissions storage (replace with database later)
+const agentSubmissions = {};
+
 // ==========================================================================
 // PYTHON INTEGRATION
 // ==========================================================================
@@ -335,6 +338,275 @@ app.get('/api/leads', (req, res) => {
   });
 });
 
+// ==========================================================================
+// AGENT SUBMISSION ENDPOINTS (Phase 2)
+// ==========================================================================
+
+/**
+ * Submit property data from agent
+ * POST /api/agent/submissions
+ * Body: { agentId, property: { property_type, pin_code, locality, bedrooms, property_size, cost_per_sqft, total_cost, amenities, additional_info } }
+ */
+app.post('/api/agent/submissions', (req, res) => {
+  try {
+    const { agentId, property } = req.body;
+
+    // Validate required fields
+    if (!agentId || !property) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: agentId, property'
+      });
+    }
+
+    // Create submission object
+    const submissionId = uuidv4();
+    const submissionData = {
+      id: submissionId,
+      agent_id: agentId,
+      property: property,
+      status: 'pending_review',
+      submitted_at: new Date().toISOString(),
+      validated: false,
+      crowd_score: 0
+    };
+
+    // Store submission
+    agentSubmissions[submissionId] = submissionData;
+
+    console.log(`[AGENT SUBMISSION] ${agentId} - ${property.property_type} at ${property.pin_code}`);
+
+    res.json({
+      success: true,
+      submission_id: submissionId,
+      message: 'Property data submitted successfully',
+      data: submissionData
+    });
+  } catch (error) {
+    console.error('Agent submission error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+/**
+ * Get all agent submissions (admin endpoint)
+ * GET /api/agent/submissions?filter=pending|approved|all
+ */
+app.get('/api/agent/submissions', (req, res) => {
+  try {
+    const { filter = 'all' } = req.query;
+
+    let submissionsList = Object.values(agentSubmissions);
+
+    if (filter === 'pending') {
+      submissionsList = submissionsList.filter(s => s.status === 'pending_review');
+    } else if (filter === 'approved') {
+      submissionsList = submissionsList.filter(s => s.status === 'approved');
+    }
+
+    submissionsList.sort((a, b) =>
+      new Date(b.submitted_at) - new Date(a.submitted_at)
+    );
+
+    res.json({
+      success: true,
+      total: submissionsList.length,
+      filter: filter,
+      data: submissionsList
+    });
+  } catch (error) {
+    console.error('Get submissions error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+/**
+ * Get specific agent submission
+ * GET /api/agent/submissions/:submission_id
+ */
+app.get('/api/agent/submissions/:submission_id', (req, res) => {
+  try {
+    const { submission_id } = req.params;
+
+    if (agentSubmissions[submission_id]) {
+      res.json({
+        success: true,
+        data: agentSubmissions[submission_id]
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        error: 'Submission not found'
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+/**
+ * Approve/Reject agent submission
+ * POST /api/agent/submissions/:submission_id/review
+ * Body: { action: 'approve' | 'reject', comments: '...' }
+ */
+app.post('/api/agent/submissions/:submission_id/review', (req, res) => {
+  try {
+    const { submission_id } = req.params;
+    const { action, comments } = req.body;
+
+    if (!agentSubmissions[submission_id]) {
+      return res.status(404).json({
+        success: false,
+        error: 'Submission not found'
+      });
+    }
+
+    if (!['approve', 'reject'].includes(action)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid action. Must be approve or reject'
+      });
+    }
+
+    const submission = agentSubmissions[submission_id];
+    submission.status = action === 'approve' ? 'approved' : 'rejected';
+    submission.review_comments = comments || '';
+    submission.reviewed_at = new Date().toISOString();
+
+    if (action === 'approve') {
+      submission.validated = true;
+    }
+
+    console.log(`[SUBMISSION REVIEW] ${submission_id} - ${action}`);
+
+    res.json({
+      success: true,
+      message: `Submission ${action}ed successfully`,
+      data: submission
+    });
+  } catch (error) {
+    console.error('Review submission error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+/**
+ * Get crowd-sourced property data by PIN code
+ * GET /api/agent/properties/pin/:pin_code
+ * Returns: Aggregated data from multiple agents for a PIN code
+ */
+app.get('/api/agent/properties/pin/:pin_code', (req, res) => {
+  try {
+    const { pin_code } = req.params;
+
+    // Find all approved submissions for this PIN code
+    const submissions = Object.values(agentSubmissions).filter(sub =>
+      sub.status === 'approved' && sub.property.pin_code === pin_code
+    );
+
+    if (submissions.length === 0) {
+      return res.json({
+        success: true,
+        pin_code: pin_code,
+        count: 0,
+        message: 'No validated property data available yet for this PIN code',
+        data: null
+      });
+    }
+
+    // Aggregate data
+    const aggregated = {
+      pin_code: pin_code,
+      locality: submissions[0].property.locality,
+      submission_count: submissions.length,
+      properties_by_type: {},
+      average_cost_per_sqft: 0,
+      price_range: { min: Infinity, max: 0 },
+      crowd_verified: true,
+      last_updated: new Date().toISOString()
+    };
+
+    // Group by property type and calculate averages
+    const costPerSqftValues = [];
+    const priceValues = [];
+
+    submissions.forEach(sub => {
+      const pType = sub.property.property_type;
+
+      if (!aggregated.properties_by_type[pType]) {
+        aggregated.properties_by_type[pType] = {
+          count: 0,
+          avg_cost_per_sqft: 0,
+          avg_price: 0,
+          size_range: { min: Infinity, max: 0 }
+        };
+      }
+
+      const typeData = aggregated.properties_by_type[pType];
+      typeData.count++;
+
+      if (sub.property.cost_per_sqft) {
+        costPerSqftValues.push(parseInt(sub.property.cost_per_sqft));
+      }
+
+      if (sub.property.property_size) {
+        const size = parseInt(sub.property.property_size);
+        typeData.size_range.min = Math.min(typeData.size_range.min, size);
+        typeData.size_range.max = Math.max(typeData.size_range.max, size);
+      }
+
+      if (sub.property.total_cost) {
+        const price = sub.property.total_cost;
+        priceValues.push(price);
+      }
+    });
+
+    // Calculate averages
+    if (costPerSqftValues.length > 0) {
+      aggregated.average_cost_per_sqft = Math.round(
+        costPerSqftValues.reduce((a, b) => a + b, 0) / costPerSqftValues.length
+      );
+    }
+
+    // Calculate property type averages
+    Object.keys(aggregated.properties_by_type).forEach(pType => {
+      const typeSubmissions = submissions.filter(s => s.property.property_type === pType);
+      const costsForType = typeSubmissions
+        .filter(s => s.property.cost_per_sqft)
+        .map(s => parseInt(s.property.cost_per_sqft));
+
+      if (costsForType.length > 0) {
+        aggregated.properties_by_type[pType].avg_cost_per_sqft = Math.round(
+          costsForType.reduce((a, b) => a + b, 0) / costsForType.length
+        );
+      }
+    });
+
+    res.json({
+      success: true,
+      data: aggregated
+    });
+  } catch (error) {
+    console.error('Get property data error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 /**
  * 404 handler
  */
@@ -362,19 +634,30 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log(`
-╔════════════════════════════════════════════╗
-║  PropBot API Server Running                ║
-╠════════════════════════════════════════════╣
+╔════════════════════════════════════════════════════════════╗
+║  PropBot API Server Running (v2 - Agent Portal Enabled)   ║
+╠════════════════════════════════════════════════════════════╣
 ║  Port: ${PORT}
 ║  Status: http://localhost:${PORT}/api/health
 ║  Lead Email: ${NOTIFICATION_EMAIL}
-╠════════════════════════════════════════════╣
-║  Available Endpoints:                      ║
-║  POST   /api/valuate    (Valuation)       ║
-║  POST   /api/leads      (Capture lead)    ║
-║  GET    /api/leads      (View all leads)  ║
-║  GET    /api/health     (Health check)    ║
-╚════════════════════════════════════════════╝
+╠════════════════════════════════════════════════════════════╣
+║  Customer Endpoints:                                       ║
+║  POST   /api/valuate              (Property valuation)     ║
+║  POST   /api/leads                (Capture lead)          ║
+║  GET    /api/leads                (View all leads)        ║
+╠════════════════════════════════════════════════════════════╣
+║  Agent Portal Endpoints:                                   ║
+║  POST   /api/agent/submissions    (Submit property data)   ║
+║  GET    /api/agent/submissions    (View submissions)      ║
+║  POST   /.../review               (Admin review action)    ║
+║  GET    /api/agent/properties/pin/(PIN) (Crowd-sourced)   ║
+╠════════════════════════════════════════════════════════════╣
+║  Admin Portal:                                             ║
+║  /admin-dashboard.html            (Review submissions)     ║
+║  /agent-login.html                (Agent login)           ║
+╠════════════════════════════════════════════════════════════╣
+║  GET    /api/health               (Health check)          ║
+╚════════════════════════════════════════════════════════════╝
   `);
 });
 

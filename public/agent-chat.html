@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropBot Agent - Property Submission Chat</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+        }
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .agent-info {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .agent-name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .agent-details {
+            font-size: 12px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .submissions-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .submission-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+        .submission-item:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        .submission-item.active {
+            background: rgba(255,255,255,0.3);
+            border-left: 3px solid white;
+        }
+        .new-submission-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .new-submission-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+        .logout-btn {
+            padding: 12px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .logout-btn:hover {
+            background: #e74c3c;
+            border-color: #e74c3c;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h2 {
+            color: #333;
+            font-size: 24px;
+        }
+        .status {
+            display: inline-block;
+            background: #27ae60;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .message.bot {
+            justify-content: flex-start;
+        }
+        .message.user {
+            justify-content: flex-end;
+        }
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .message.bot .message-avatar {
+            background: #667eea;
+            color: white;
+        }
+        .message.user .message-avatar {
+            background: #e0e0e0;
+        }
+        .message-content {
+            max-width: 70%;
+        }
+        .message.bot .message-bubble {
+            background: #e8f4f8;
+            color: #333;
+            border-left: 4px solid #667eea;
+            padding: 12px 14px;
+            border-radius: 8px;
+        }
+        .message.user .message-bubble {
+            background: #667eea;
+            color: white;
+            padding: 12px 14px;
+            border-radius: 8px;
+        }
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+        .input-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        input, select, textarea {
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        textarea {
+            resize: vertical;
+            min-height: 40px;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        .quick-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .quick-btn {
+            padding: 8px 12px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+        .quick-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        .photo-preview {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 2px solid #667eea;
+        }
+        .conversation-summary {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 14px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #333;
+        }
+        .loading-dots {
+            display: inline-block;
+        }
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="agent-info">
+            <div class="agent-name" id="agentName">Loading...</div>
+            <div class="agent-details">
+                <div id="agentCity">--</div>
+                <div id="loginTime">--</div>
+            </div>
+        </div>
+
+        <div class="submissions-list" id="submissionsList">
+            <div style="color: rgba(255,255,255,0.6); font-size: 12px; text-align: center; padding: 20px;">
+                No submissions yet
+            </div>
+        </div>
+
+        <button class="new-submission-btn" onclick="startNewSubmission()">+ New Property</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Main Chat Area -->
+    <div class="main-content">
+        <div class="header">
+            <div>
+                <h2>Property Submission Portal</h2>
+            </div>
+            <div class="status">🟢 Online</div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <!-- Messages will be added here -->
+        </div>
+
+        <div class="input-area">
+            <div class="input-group" id="inputGroup">
+                <!-- Dynamic input based on current question -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Agent Session & Property Data
+        let agentSession = null;
+        let currentProperty = null;
+        let submissions = [];
+        let conversationStep = 0;
+
+        // Property Collection Flow
+        const PROPERTY_FLOW = [
+            { key: 'property_type', question: '🏠 What is the property type?', type: 'select', options: ['Apartment', 'Plot / Land', 'Villa', 'Commercial', 'Other'] },
+            { key: 'pin_code', question: '📍 What is the PIN code of the property?', type: 'input', placeholder: 'e.g., 560034' },
+            { key: 'locality', question: '🏘️ Confirm the locality/area name:', type: 'input', placeholder: 'e.g., Koramangala, Bangalore' },
+            { key: 'bedrooms', question: '🛏️ Number of bedrooms (if applicable):', type: 'input', placeholder: 'e.g., 2, 3, or N/A for plots', type_attr: 'text' },
+            { key: 'property_size', question: '📐 What is the property size in sqft?', type: 'input', placeholder: 'e.g., 1200', type_attr: 'number' },
+            { key: 'cost_per_sqft', question: '💰 What is the quoted cost per sqft?', type: 'input', placeholder: 'e.g., 7500', type_attr: 'number' },
+            { key: 'total_cost', question: '💵 What is the total asking price?', type: 'input', placeholder: 'e.g., 90 lakhs or 1.5 crore', type_attr: 'text' },
+            { key: 'property_photos', question: '📸 Upload property photos (multiple):', type: 'file', accept: 'image/*' },
+            { key: 'amenities', question: '✨ Key amenities/features:', type: 'textarea', placeholder: 'e.g., Swimming pool, Gym, Security, Parking, etc.' },
+            { key: 'additional_info', question: '📝 Any additional information?', type: 'textarea', placeholder: 'e.g., Recently renovated, Negotiable, Ready to move, etc.' }
+        ];
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            const session = sessionStorage.getItem('agentSession');
+            if (!session) {
+                window.location.href = '/agent-login.html';
+                return;
+            }
+
+            agentSession = JSON.parse(session);
+            document.getElementById('agentName').textContent = agentSession.name;
+            document.getElementById('agentCity').textContent = `📍 City: ${agentSession.city.charAt(0).toUpperCase() + agentSession.city.slice(1)}`;
+            document.getElementById('loginTime').textContent = `Logged in: ${new Date(agentSession.loginTime).toLocaleTimeString()}`;
+
+            startNewSubmission();
+        });
+
+        function startNewSubmission() {
+            currentProperty = {};
+            conversationStep = 0;
+            document.getElementById('chatContainer').innerHTML = '';
+            showWelcomeMessage();
+            nextQuestion();
+        }
+
+        function showWelcomeMessage() {
+            addBotMessage('👋 Welcome to PropBot Agent Portal! I\'m here to help you submit property details quickly and accurately.\n\nLet\'s start by collecting all the essential information about the property. I\'ll ask you a series of questions to ensure we capture everything needed for valuation.');
+        }
+
+        function nextQuestion() {
+            if (conversationStep >= PROPERTY_FLOW.length) {
+                showSubmissionSummary();
+                return;
+            }
+
+            const question = PROPERTY_FLOW[conversationStep];
+            addBotMessage(question.question);
+            renderInput(question);
+        }
+
+        function renderInput(questionObj) {
+            const inputGroup = document.getElementById('inputGroup');
+            inputGroup.innerHTML = '';
+
+            if (questionObj.type === 'select') {
+                const select = document.createElement('select');
+                select.id = 'propertyInput';
+                questionObj.options.forEach(opt => {
+                    const option = document.createElement('option');
+                    option.value = opt;
+                    option.textContent = opt;
+                    select.appendChild(option);
+                });
+
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'button-group';
+                btnGroup.innerHTML = `<button onclick="submitAnswer()">Continue</button>`;
+
+                inputGroup.appendChild(select);
+                inputGroup.appendChild(btnGroup);
+            }
+            else if (questionObj.type === 'file') {
+                const fileInput = document.createElement('input');
+                fileInput.type = 'file';
+                fileInput.id = 'propertyInput';
+                fileInput.accept = questionObj.accept;
+                fileInput.multiple = true;
+
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'button-group';
+                btnGroup.innerHTML = `<button onclick="submitAnswer()">Continue (or Skip)</button>`;
+
+                inputGroup.appendChild(fileInput);
+                inputGroup.appendChild(btnGroup);
+            }
+            else if (questionObj.type === 'textarea') {
+                const textarea = document.createElement('textarea');
+                textarea.id = 'propertyInput';
+                textarea.placeholder = questionObj.placeholder;
+                textarea.rows = 3;
+
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'button-group';
+                btnGroup.innerHTML = `<button onclick="submitAnswer()">Continue</button>`;
+
+                inputGroup.appendChild(textarea);
+                inputGroup.appendChild(btnGroup);
+            }
+            else {
+                const input = document.createElement('input');
+                input.type = questionObj.type_attr || 'text';
+                input.id = 'propertyInput';
+                input.placeholder = questionObj.placeholder;
+
+                const btnGroup = document.createElement('div');
+                btnGroup.className = 'button-group';
+                btnGroup.innerHTML = `<button onclick="submitAnswer()">Continue</button>`;
+
+                inputGroup.appendChild(input);
+                inputGroup.appendChild(btnGroup);
+            }
+
+            // Focus on input
+            setTimeout(() => document.getElementById('propertyInput').focus(), 100);
+        }
+
+        function submitAnswer() {
+            const input = document.getElementById('propertyInput');
+            const value = input.value.trim();
+            const questionObj = PROPERTY_FLOW[conversationStep];
+
+            if (!value && questionObj.key !== 'property_photos' && questionObj.key !== 'amenities' && questionObj.key !== 'additional_info') {
+                alert('Please provide an answer');
+                return;
+            }
+
+            // Store answer
+            currentProperty[questionObj.key] = value;
+            addUserMessage(value);
+
+            // Move to next question
+            conversationStep++;
+            setTimeout(nextQuestion, 500);
+        }
+
+        function showSubmissionSummary() {
+            addBotMessage('✅ Perfect! I\'ve collected all the details. Let me summarize:');
+
+            const summary = `
+                📋 **Property Summary:**
+                • Type: ${currentProperty.property_type}
+                • PIN Code: ${currentProperty.pin_code}
+                • Area: ${currentProperty.locality}
+                • Bedrooms: ${currentProperty.bedrooms}
+                • Size: ${currentProperty.property_size} sqft
+                • Cost/sqft: ₹${currentProperty.cost_per_sqft}
+                • Total Price: ${currentProperty.total_cost}
+                • Amenities: ${currentProperty.amenities || 'N/A'}
+                • Additional Info: ${currentProperty.additional_info || 'None'}
+            `;
+
+            addBotMessage(summary);
+
+            // Show action buttons
+            const inputGroup = document.getElementById('inputGroup');
+            inputGroup.innerHTML = `
+                <div class="button-group" style="justify-content: center; gap: 10px;">
+                    <button onclick="submitProperty()" style="background: #27ae60;">✓ Submit Property</button>
+                    <button onclick="startNewSubmission()" style="background: #f39c12;">+ Add Another</button>
+                </div>
+            `;
+        }
+
+        function submitProperty() {
+            const submission = {
+                id: Date.now(),
+                agent: agentSession.agentId,
+                property: currentProperty,
+                submittedAt: new Date().toISOString(),
+                status: 'Pending Review'
+            };
+
+            submissions.push(submission);
+            localStorage.setItem('propertySubmissions', JSON.stringify(submissions));
+
+            addBotMessage('🎉 **Property submitted successfully!**\n\nYour submission has been queued for admin review. Once approved, it will be added to our database and reflected in property valuations.\n\nThank you for contributing quality property data!');
+
+            updateSubmissionsList();
+
+            const inputGroup = document.getElementById('inputGroup');
+            inputGroup.innerHTML = `
+                <div class="button-group">
+                    <button onclick="startNewSubmission()">+ Submit Another Property</button>
+                </div>
+            `;
+        }
+
+        function updateSubmissionsList() {
+            const list = document.getElementById('submissionsList');
+            if (submissions.length === 0) {
+                list.innerHTML = '<div style="color: rgba(255,255,255,0.6); font-size: 12px; text-align: center; padding: 20px;">No submissions yet</div>';
+                return;
+            }
+
+            list.innerHTML = submissions.map(sub => `
+                <div class="submission-item">
+                    <strong>${sub.property.property_type}</strong><br>
+                    ${sub.property.locality}<br>
+                    <small>${new Date(sub.submittedAt).toLocaleDateString()}</small>
+                </div>
+            `).join('');
+        }
+
+        function addBotMessage(text) {
+            const chat = document.getElementById('chatContainer');
+            const messageEl = document.createElement('div');
+            messageEl.className = 'message bot';
+            messageEl.innerHTML = `
+                <div class="message-avatar">🤖</div>
+                <div class="message-content">
+                    <div class="message-bubble">${text}</div>
+                </div>
+            `;
+            chat.appendChild(messageEl);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function addUserMessage(text) {
+            const chat = document.getElementById('chatContainer');
+            const messageEl = document.createElement('div');
+            messageEl.className = 'message user';
+            messageEl.innerHTML = `
+                <div class="message-content">
+                    <div class="message-bubble">${text}</div>
+                </div>
+                <div class="message-avatar">👤</div>
+            `;
+            chat.appendChild(messageEl);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function logout() {
+            sessionStorage.removeItem('agentSession');
+            window.location.href = '/agent-login.html';
+        }
+    </script>
+</body>
+</html>

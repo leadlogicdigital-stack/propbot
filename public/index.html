@@ -222,10 +222,16 @@
 </head>
 <body>
     <div class="container">
+        <div style="background: #f0f4ff; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-size: 12px;">
+            🎉 <strong>Phase 2 Live!</strong>
+            <a href="/agent-login.html" style="color: #667eea; font-weight: 700; text-decoration: none; margin: 0 5px;">Agent Portal</a> |
+            <a href="/admin-dashboard.html" style="color: #667eea; font-weight: 700; text-decoration: none; margin: 0 5px;">Admin Dashboard</a>
+        </div>
+
         <div class="header">
-            <div class="v2-badge">✨ Version 2.0 - PIN Code Enabled</div>
+            <div class="v2-badge">✨ Version 2.0 - PIN Code + Crowd-Source Enabled</div>
             <h1>🏠 PropBot</h1>
-            <p class="subtitle">AI-Powered Property Valuation using PIN Codes</p>
+            <p class="subtitle">AI-Powered Property Valuation using PIN Codes + Real Market Data from Agents</p>
         </div>
         
         <div id="errorMessage" class="error"></div>
@@ -286,7 +292,14 @@
             <div class="result-title">✅ Valuation Estimate</div>
             <div id="resultContent"></div>
             <div class="info-box">
-                💡 <strong>Note:</strong> This is an AI-generated estimate based on government guidance values, market data, and location analysis. Actual property value may vary based on additional factors.
+                💡 <strong>Note:</strong> This is an AI-generated estimate based on:
+                <ul style="margin: 8px 0 0 20px; font-size: 12px;">
+                    <li>Government guidance values</li>
+                    <li>Real market data from verified agents</li>
+                    <li>Location-based analysis</li>
+                    <li>Crowd-sourced property pricing data</li>
+                </ul>
+                <div style="margin-top: 8px; font-size: 11px; opacity: 0.8;">Actual property value may vary based on additional factors like condition, amenities, and local market trends.</div>
             </div>
         </div>
     </div>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropBot Admin Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .navbar h1 {
+            font-size: 24px;
+        }
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .logout-btn:hover {
+            background: #e74c3c;
+            border-color: #e74c3c;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 14px;
+        }
+        .submissions-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .submissions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .submissions-header h2 {
+            color: #333;
+            font-size: 22px;
+        }
+        .filter-tabs {
+            display: flex;
+            gap: 10px;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        .filter-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        .submissions-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .submissions-table thead {
+            background: #f9f9f9;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .submissions-table th {
+            padding: 15px;
+            text-align: left;
+            color: #333;
+            font-weight: 700;
+        }
+        .submissions-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .submissions-table tr:hover {
+            background: #f9f9f9;
+        }
+        .property-type-badge {
+            display: inline-block;
+            background: #e8f4f8;
+            color: #667eea;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-badge.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-badge.approved {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-badge.rejected {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        .approve-btn {
+            background: #27ae60;
+            color: white;
+        }
+        .approve-btn:hover {
+            background: #229954;
+        }
+        .reject-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .reject-btn:hover {
+            background: #c0392b;
+        }
+        .view-btn {
+            background: #3498db;
+            color: white;
+        }
+        .view-btn:hover {
+            background: #2980b9;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .modal-header h3 {
+            color: #333;
+            font-size: 20px;
+        }
+        .property-detail {
+            margin-bottom: 15px;
+        }
+        .property-detail label {
+            display: block;
+            color: #666;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .property-detail value {
+            display: block;
+            color: #333;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 2px solid #f0f0f0;
+        }
+        .modal-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .approve-modal-btn {
+            background: #27ae60;
+            color: white;
+        }
+        .approve-modal-btn:hover {
+            background: #229954;
+        }
+        .reject-modal-btn {
+            background: #e74c3c;
+            color: white;
+        }
+        .reject-modal-btn:hover {
+            background: #c0392b;
+        }
+        .close-modal-btn {
+            background: #95a5a6;
+            color: white;
+        }
+        .close-modal-btn:hover {
+            background: #7f8c8d;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>🏠 PropBot - Admin Dashboard</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalSubmissions">0</div>
+                <div class="stat-label">Total Submissions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingCount">0</div>
+                <div class="stat-label">Pending Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="approvedCount">0</div>
+                <div class="stat-label">Approved</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="rejectedCount">0</div>
+                <div class="stat-label">Rejected</div>
+            </div>
+        </div>
+
+        <!-- Submissions Table -->
+        <div class="submissions-section">
+            <div class="submissions-header">
+                <h2>📋 Property Submissions</h2>
+                <div class="filter-tabs">
+                    <button class="filter-btn active" onclick="filterSubmissions('all')">All</button>
+                    <button class="filter-btn" onclick="filterSubmissions('pending')">Pending</button>
+                    <button class="filter-btn" onclick="filterSubmissions('approved')">Approved</button>
+                    <button class="filter-btn" onclick="filterSubmissions('rejected')">Rejected</button>
+                </div>
+            </div>
+
+            <table class="submissions-table">
+                <thead>
+                    <tr>
+                        <th>Agent</th>
+                        <th>Property Type</th>
+                        <th>Location (PIN)</th>
+                        <th>Area (sqft)</th>
+                        <th>Price</th>
+                        <th>Submitted</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="submissionsTableBody">
+                    <tr>
+                        <td colspan="8" class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <div>No submissions yet. Submissions from agents will appear here.</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Submission Detail Modal -->
+    <div class="modal" id="submissionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Property Submission Details</h3>
+            </div>
+
+            <div id="modalBody">
+                <!-- Property details will be loaded here -->
+            </div>
+
+            <div class="modal-actions">
+                <button class="approve-modal-btn" onclick="approveSubmission()">✓ Approve</button>
+                <button class="reject-modal-btn" onclick="rejectSubmission()">✗ Reject</button>
+                <button class="close-modal-btn" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let submissions = [];
+        let currentFilter = 'all';
+        let selectedSubmission = null;
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSubmissions();
+            updateStats();
+            renderTable();
+        });
+
+        function loadSubmissions() {
+            const saved = localStorage.getItem('propertySubmissions');
+            submissions = saved ? JSON.parse(saved) : [];
+        }
+
+        function filterSubmissions(filter) {
+            currentFilter = filter;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderTable();
+        }
+
+        function renderTable() {
+            const body = document.getElementById('submissionsTableBody');
+
+            const filtered = submissions.filter(sub => {
+                if (currentFilter === 'all') return true;
+                return sub.status === (currentFilter === 'pending' ? 'Pending Review' :
+                                      currentFilter === 'approved' ? 'Approved' : 'Rejected');
+            });
+
+            if (filtered.length === 0) {
+                body.innerHTML = `<tr><td colspan="8" class="empty-state"><div class="empty-state-icon">📭</div>No submissions match this filter.</td></tr>`;
+                return;
+            }
+
+            body.innerHTML = filtered.map(sub => `
+                <tr>
+                    <td>${sub.agent}</td>
+                    <td><span class="property-type-badge">${sub.property.property_type}</span></td>
+                    <td>${sub.property.pin_code} - ${sub.property.locality}</td>
+                    <td>${sub.property.property_size || 'N/A'}</td>
+                    <td>₹${sub.property.total_cost || 'N/A'}</td>
+                    <td>${new Date(sub.submittedAt).toLocaleDateString()}</td>
+                    <td><span class="status-badge ${sub.status === 'Pending Review' ? 'pending' : sub.status === 'Approved' ? 'approved' : 'rejected'}">${sub.status}</span></td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn view-btn" onclick="viewSubmission(${sub.id})">View</button>
+                            ${sub.status === 'Pending Review' ? `
+                                <button class="action-btn approve-btn" onclick="quickApprove(${sub.id})">✓</button>
+                                <button class="action-btn reject-btn" onclick="quickReject(${sub.id})">✗</button>
+                            ` : ''}
+                        </td>
+                    </tr>
+            `).join('');
+        }
+
+        function viewSubmission(id) {
+            selectedSubmission = submissions.find(s => s.id === id);
+            if (!selectedSubmission) return;
+
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="property-detail">
+                    <label>Property Type</label>
+                    <value>${selectedSubmission.property.property_type}</value>
+                </div>
+                <div class="property-detail">
+                    <label>PIN Code</label>
+                    <value>${selectedSubmission.property.pin_code}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Locality</label>
+                    <value>${selectedSubmission.property.locality}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Bedrooms</label>
+                    <value>${selectedSubmission.property.bedrooms || 'N/A'}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Property Size (sqft)</label>
+                    <value>${selectedSubmission.property.property_size}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Cost per sqft</label>
+                    <value>₹${selectedSubmission.property.cost_per_sqft}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Total Cost</label>
+                    <value>${selectedSubmission.property.total_cost}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Amenities</label>
+                    <value>${selectedSubmission.property.amenities || 'N/A'}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Additional Information</label>
+                    <value>${selectedSubmission.property.additional_info || 'N/A'}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Submitted By</label>
+                    <value>${selectedSubmission.agent}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Submitted On</label>
+                    <value>${new Date(selectedSubmission.submittedAt).toLocaleString()}</value>
+                </div>
+                <div class="property-detail">
+                    <label>Current Status</label>
+                    <value><span class="status-badge ${selectedSubmission.status === 'Pending Review' ? 'pending' : selectedSubmission.status === 'Approved' ? 'approved' : 'rejected'}">${selectedSubmission.status}</span></value>
+                </div>
+            `;
+
+            document.getElementById('submissionModal').classList.add('active');
+        }
+
+        function approveSubmission() {
+            if (!selectedSubmission) return;
+            selectedSubmission.status = 'Approved';
+            updateSubmissions();
+            closeModal();
+            loadSubmissions();
+            updateStats();
+            renderTable();
+        }
+
+        function rejectSubmission() {
+            if (!selectedSubmission) return;
+            selectedSubmission.status = 'Rejected';
+            updateSubmissions();
+            closeModal();
+            loadSubmissions();
+            updateStats();
+            renderTable();
+        }
+
+        function quickApprove(id) {
+            const sub = submissions.find(s => s.id === id);
+            if (sub) {
+                sub.status = 'Approved';
+                updateSubmissions();
+                loadSubmissions();
+                updateStats();
+                renderTable();
+            }
+        }
+
+        function quickReject(id) {
+            const sub = submissions.find(s => s.id === id);
+            if (sub) {
+                sub.status = 'Rejected';
+                updateSubmissions();
+                loadSubmissions();
+                updateStats();
+                renderTable();
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('submissionModal').classList.remove('active');
+            selectedSubmission = null;
+        }
+
+        function updateSubmissions() {
+            localStorage.setItem('propertySubmissions', JSON.stringify(submissions));
+        }
+
+        function updateStats() {
+            document.getElementById('totalSubmissions').textContent = submissions.length;
+            document.getElementById('pendingCount').textContent = submissions.filter(s => s.status === 'Pending Review').length;
+            document.getElementById('approvedCount').textContent = submissions.filter(s => s.status === 'Approved').length;
+            document.getElementById('rejectedCount').textContent = submissions.filter(s => s.status === 'Rejected').length;
+        }
+
+        function logout() {
+            window.location.href = '/agent-login.html';
+        }
+    </script>
+</body>
+</html>

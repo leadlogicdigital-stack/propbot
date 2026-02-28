@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropBot Agent Portal - Login</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 100%;
+            padding: 45px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+        .agent-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .error {
+            color: #e74c3c;
+            padding: 12px 14px;
+            background: #fadbd8;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+            border-left: 4px solid #e74c3c;
+        }
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 12px 14px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #555;
+        }
+        .demo-credentials {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 12px 14px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #333;
+        }
+        .demo-credentials strong {
+            color: #667eea;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            display: none;
+        }
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="header">
+            <div class="agent-badge">🤝 Agent Portal</div>
+            <h1>🏠 PropBot</h1>
+            <p class="subtitle">Real Estate Agent Property Submission Portal</p>
+        </div>
+
+        <div id="errorMessage" class="error"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Agent ID / Email</label>
+                <input type="text" id="agentId" placeholder="e.g., agent@propbot.com or AG001" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit">Login to Agent Portal</button>
+        </form>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #666;">Verifying credentials...</p>
+        </div>
+
+        <div class="demo-credentials">
+            <strong>Demo Credentials:</strong><br>
+            Email: agent1@propbot.com<br>
+            Password: demo123
+        </div>
+
+        <div class="info-box">
+            💡 <strong>Note:</strong> This portal is for registered real estate agents only. Contact PropBot admin for access credentials.
+        </div>
+    </div>
+
+    <script>
+        // Agent Database (in production, this would be a secure backend)
+        const AGENT_DATABASE = {
+            'agent1@propbot.com': {
+                password: 'demo123',
+                name: 'Rajesh Kumar',
+                city: 'bangalore',
+                agentId: 'AG001'
+            },
+            'agent2@propbot.com': {
+                password: 'demo123',
+                name: 'Priya Sharma',
+                city: 'mysore',
+                agentId: 'AG002'
+            }
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const agentId = document.getElementById('agentId').value.trim();
+            const password = document.getElementById('password').value;
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('errorMessage').style.display = 'none';
+
+            // Simulate API call
+            setTimeout(() => {
+                if (AGENT_DATABASE[agentId] && AGENT_DATABASE[agentId].password === password) {
+                    // Store agent session
+                    const agent = AGENT_DATABASE[agentId];
+                    sessionStorage.setItem('agentSession', JSON.stringify({
+                        agentId: agentId,
+                        name: agent.name,
+                        city: agent.city,
+                        loginTime: new Date().toISOString()
+                    }));
+
+                    // Redirect to chat interface
+                    window.location.href = '/agent-chat.html';
+                } else {
+                    document.getElementById('loading').style.display = 'none';
+                    showError('❌ Invalid agent ID or password. Please try again.');
+                }
+            }, 1000);
+        });
+
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
