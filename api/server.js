@@ -8,7 +8,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { PythonShell } = require('python-shell');
+const { spawn } = require('child_process');
 const nodemailer = require('nodemailer');
 const { v4: uuidv4 } = require('uuid');
 
@@ -47,69 +47,64 @@ async function callValuationEngine(params) {
    * Returns: { success: true/false, data: {...}, error: "..." }
    */
 
-  return new Promise((resolve, reject) => {
-    const pythonPath = path.join(__dirname, '..', 'backend', 'valuation_engine.py');
+  return new Promise((resolve) => {
+    const backendPath = path.join(__dirname, '..', 'backend');
+    const valuateScript = path.join(backendPath, 'valuate.py');
 
-    // Create Python script call
-    const options = {
-      mode: 'json',
-      pythonPath: 'python3',
-      pythonOptions: ['-u'],
-      scriptPath: path.join(__dirname, '..', 'backend'),
-      args: [JSON.stringify(params)]
-    };
+    // Spawn Python process
+    const python = spawn('python3', [valuateScript, JSON.stringify(params)], {
+      cwd: backendPath,
+      timeout: 10000
+    });
 
-    // For now, return mock data (Python integration can be improved)
-    // In production, would use: PythonShell.run('valuation_engine.py', options, ...)
+    let output = '';
+    let errorOutput = '';
 
-    const mockValuation = {
-      apartment: {
-        property_type: 'apartment',
-        city: params.city,
-        size_sqft: params.sqft,
-        distance_km: params.distance_km || 5,
-        price_per_sqft: 8000,
-        estimate_min: 7200000,
-        estimate_max: 8800000,
-        estimate_mid: 8000000,
-        confidence: '75-80%'
-      },
-      plot: {
-        property_type: 'plot',
-        city: params.city,
-        size_sqft: params.sqft || 2400,
-        distance_km: params.distance_km || 5,
-        price_per_sqft: 5000,
-        estimate_min: 10800000,
-        estimate_max: 13200000,
-        estimate_mid: 12000000,
-        confidence: '70-75%'
-      },
-      villa: {
-        property_type: 'villa',
-        city: params.city,
-        acres: params.acres || 2,
-        distance_km: params.distance_km || 5,
-        estimate_min: 9000000,
-        estimate_max: 15000000,
-        estimate_mid: 12000000,
-        confidence: '65-70%'
-      },
-      agricultural: {
-        property_type: 'agricultural',
-        city: params.city,
-        acres: params.acres || 1,
-        distance_km: params.distance_km || 10,
-        estimate_min: 900000,
-        estimate_max: 1500000,
-        estimate_mid: 1200000,
-        confidence: '60-65%'
+    python.stdout.on('data', (data) => {
+      output += data.toString();
+    });
+
+    python.stderr.on('data', (data) => {
+      errorOutput += data.toString();
+    });
+
+    python.on('close', (code) => {
+      if (code !== 0) {
+        console.error('Python error:', errorOutput);
+        resolve({
+          success: false,
+          error: 'Valuation engine error: ' + errorOutput
+        });
+      } else {
+        try {
+          const result = JSON.parse(output);
+          if (result.error) {
+            resolve({
+              success: false,
+              error: result.error
+            });
+          } else {
+            resolve({
+              success: true,
+              data: result
+            });
+          }
+        } catch (parseErr) {
+          console.error('JSON parse error:', parseErr, 'Output:', output);
+          resolve({
+            success: false,
+            error: 'Failed to parse valuation result'
+          });
+        }
       }
-    };
+    });
 
-    resolve({
-      success: true,
-      data: mockValuation[params.property_type] || mockValuation.apartment
+    python.on('error', (err) => {
+      console.error('Spawn error:', err);
+      resolve({
+        success: false,
+        error: 'Failed to spawn valuation engine: ' + err.message
+      });
     });
   });
 }
