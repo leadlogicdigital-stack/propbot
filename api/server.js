@@ -163,6 +163,22 @@ async function sendLeadNotification(leadData) {
 // ==========================================================================
 
 /**
+ * Root endpoint - serve landing page
+ */
+app.get('/', (req, res) => {
+  const indexPath = path.join(__dirname, '..', 'public', 'index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      res.status(200).json({
+        status: 'online',
+        app: 'PropBot API',
+        message: 'Visit /api/valuate to test the valuation engine'
+      });
+    }
+  });
+});
+
+/**
  * Health check endpoint
  */
 app.get('/api/health', (req, res) => {
