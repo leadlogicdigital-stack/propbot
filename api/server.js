@@ -8,6 +8,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const fs = require('fs');
 const { spawn } = require('child_process');
 const nodemailer = require('nodemailer');
 const { v4: uuidv4 } = require('uuid');
@@ -27,10 +28,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files from React frontend build
 const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'out');
-const frontendNextPath = path.join(__dirname, '..', 'frontend', '.next', 'standalone', 'public');
 
-// Try serving from 'out' directory first (static export), then '.next' (Next.js build)
-if (require('fs').existsSync(frontendBuildPath)) {
+// Serve static files from Next.js export
+if (fs.existsSync(frontendBuildPath)) {
   app.use(express.static(frontendBuildPath));
 }
 
@@ -171,7 +171,7 @@ async function sendLeadNotification(leadData) {
  */
 app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, '..', 'frontend', 'out', 'index.html');
-  if (require('fs').existsSync(indexPath)) {
+  if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
     res.json({
