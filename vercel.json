@@ -1,7 +1,7 @@
 {
   "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/build",
+  "outputDirectory": "frontend/.next",
   "env": {
-    "REACT_APP_API_URL": "@api_url"
+    "NEXT_PUBLIC_API_BASE_URL": "@next_public_api_base_url"
   }
 }
