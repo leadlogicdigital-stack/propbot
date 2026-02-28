@@ -3,79 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PropBot - Property Valuation</title>
+    <title>PropBot v2 - PIN Code Property Valuation</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .container { background: white; border-radius: 10px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%; padding: 40px; }
-        h1 { color: #333; margin-bottom: 10px; font-size: 28px; }
-        .subtitle { color: #666; margin-bottom: 30px; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; color: #333; font-weight: 500; margin-bottom: 8px; }
-        input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
-        button { width: 100%; padding: 12px; background: #667eea; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; }
-        .result { display: none; padding: 20px; background: #f0f4ff; border-radius: 5px; margin-top: 20px; }
-        .result.show { display: block; }
-        .error { color: #e74c3c; padding: 10px; background: #fadbd8; border-radius: 5px; margin-bottom: 15px; display: none; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+        .container { 
+            background: white; 
+            border-radius: 15px; 
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3); 
+            max-width: 700px; 
+            width: 100%; 
+            padding: 45px; 
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        h1 { 
+            color: #333; 
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        .version { 
+            color: #667eea; 
+            font-size: 12px; 
+            font-weight: 600; 
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .subtitle { 
+            color: #666; 
+            margin-top: 8px;
+            font-size: 14px;
+        }
+        .form-section {
+            margin-bottom: 28px;
+        }
+        .section-title {
+            color: #667eea;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        .form-group { 
+            margin-bottom: 16px; 
+        }
+        label { 
+            display: block; 
+            color: #333; 
+            font-weight: 600; 
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        input, select { 
+            flex: 1;
+            padding: 12px 14px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 8px; 
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus { 
+            outline: none; 
+            border-color: #667eea; 
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        .area-display {
+            padding: 12px 14px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 14px;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+        .area-display.empty {
+            color: #999;
+            font-weight: normal;
+        }
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+        button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .result { 
+            display: none; 
+            padding: 22px; 
+            background: linear-gradient(135deg, #f0f4ff 0%, #f5f0ff 100%);
+            border-radius: 10px; 
+            margin-top: 25px;
+            border-left: 5px solid #667eea;
+        }
+        .result.show { 
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-title {
+            color: #27ae60;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-label {
+            color: #666;
+            font-weight: 600;
+        }
+        .result-value{
+            color: #333;
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .estimate-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 12px;
+            border: 2px solid #667eea;
+        }
+        .estimate-range {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: 700;
+            text-align: center;
+        }
+        .error { 
+            color: #e74c3c; 
+            padding: 12px 14px; 
+            background: #fadbd8; 
+            border-radius: 8px; 
+            margin-bottom: 15px;
+            display: none;
+            border-left: 4px solid #e74c3c;
+        }
+        .loading { 
+            text-align: center; 
+            padding: 20px; 
+            display: none;
+        }
+        .spinner { 
+            display: inline-block; 
+            width: 40px; 
+            height: 40px; 
+            border: 4px solid #f3f3f3; 
+            border-top: 4px solid #667eea; 
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 12px 14px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #555;
+        }
+        .v2-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🏠 PropBot</h1>
-        <p class="subtitle">AI-Powered Property Valuation</p>
+        <div class="header">
+            <div class="v2-badge">✨ Version 2.0 - PIN Code Enabled</div>
+            <h1>🏠 PropBot</h1>
+            <p class="subtitle">AI-Powered Property Valuation using PIN Codes</p>
+        </div>
         
         <div id="errorMessage" class="error"></div>
         
         <form id="valuationForm">
-            <div class="form-group">
-                <label>City</label>
-                <select id="city" required><option value="bangalore">Bangalore</option><option value="mysore">Mysore</option></select>
+            <!-- PIN Code Section -->
+            <div class="form-section">
+                <div class="section-title">📍 Location Details</div>
+                
+                <div class="form-group">
+                    <label>PIN Code <span style="color: #e74c3c;">*</span></label>
+                    <input type="text" id="pinCode" placeholder="e.g., 560034 (Koramangala)" required maxlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label>Area Name</label>
+                    <div id="areaDisplay" class="area-display empty">Enter PIN code to see area name</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Property Type</label>
-                <select id="propertyType" required><option value="apartment">Apartment</option><option value="plot">Plot</option><option value="villa">Villa</option></select>
+
+            <!-- Property Details Section -->
+            <div class="form-section">
+                <div class="section-title">🏘️ Property Details</div>
+                
+                <div class="form-group">
+                    <label>Property Type <span style="color: #e74c3c;">*</span></label>
+                    <select id="propertyType" required>
+                        <option value="">Select property type...</option>
+                        <option value="apartment">Apartment</option>
+                        <option value="plot">Plot / Land</option>
+                        <option value="villa">Villa</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Property Size <span style="color: #e74c3c;">*</span></label>
+                    <div class="input-group">
+                        <input type="number" id="sqft" required placeholder="e.g., 1200" value="1000">
+                        <span style="padding: 12px 14px; background: #f5f5f5; border-radius: 8px; font-weight: 600; color: #666; flex: 0 0 auto;">sqft</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Distance from PIN Code Center (km)</label>
+                    <input type="number" id="distance" placeholder="e.g., 2" value="2" min="0">
+                </div>
             </div>
-            <div class="form-group">
-                <label>Size (sqft)</label>
-                <input type="number" id="sqft" required value="1000">
-            </div>
-            <div class="form-group">
-                <label>Distance from CBD (km)</label>
-                <input type="number" id="distance" value="5">
-            </div>
-            <button type="submit">Get Valuation</button>
+
+            <button type="submit">Get AI Valuation Estimate</button>
         </form>
         
-        <div id="result" class="result"></div>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #666;">Calculating valuation...</p>
+        </div>
+
+        <div id="result" class="result">
+            <div class="result-title">✅ Valuation Estimate</div>
+            <div id="resultContent"></div>
+            <div class="info-box">
+                💡 <strong>Note:</strong> This is an AI-generated estimate based on government guidance values, market data, and location analysis. Actual property value may vary based on additional factors.
+            </div>
+        </div>
     </div>
 
     <script>
+        // PIN Code Database with Area Names
+        const PIN_CODE_DATABASE = {
+            '560034': { area: 'Koramangala, Bangalore', city: 'Bangalore' },
+            '560001': { area: 'MG Road / Lavelle Road, Bangalore', city: 'Bangalore' },
+            '560003': { area: 'Malleshwaram, Bangalore', city: 'Bangalore' },
+            '560004': { area: 'Basavanagudi, Bangalore', city: 'Bangalore' },
+            '560007': { area: 'Indranagar, Bangalore', city: 'Bangalore' },
+            '560009': { area: 'Jayanagar, Bangalore', city: 'Bangalore' },
+            '560010': { area: 'JP Nagar, Bangalore', city: 'Bangalore' },
+            '560015': { area: 'Whitefield, Bangalore', city: 'Bangalore' },
+            '560021': { area: 'Yeshwanthpur, Bangalore', city: 'Bangalore' },
+            '560025': { area: 'Vijayanagar, Bangalore', city: 'Bangalore' },
+            '560076': { area: 'Varthur, Bangalore', city: 'Bangalore' },
+            '570001': { area: 'Mysore H.O., Mysore', city: 'Mysore' },
+            '570009': { area: 'Saraswathipuram, Mysore', city: 'Mysore' },
+            '570025': { area: 'Vijayanagar, Mysore', city: 'Mysore' },
+        };
+
+        const pinCodeInput = document.getElementById('pinCode');
+        const areaDisplay = document.getElementById('areaDisplay');
+
+        // Update area name when PIN code changes
+        pinCodeInput.addEventListener('input', (e) => {
+            const pinCode = e.target.value.trim();
+            if (PIN_CODE_DATABASE[pinCode]) {
+                const data = PIN_CODE_DATABASE[pinCode];
+                areaDisplay.textContent = `📍 ${data.area}`;
+                areaDisplay.classList.remove('empty');
+            } else if (pinCode.length === 6) {
+                areaDisplay.textContent = '❌ PIN code not found in database';
+                areaDisplay.classList.remove('empty');
+                areaDisplay.style.color = '#e74c3c';
+            } else {
+                areaDisplay.textContent = 'Enter PIN code to see area name';
+                areaDisplay.classList.add('empty');
+                areaDisplay.style.color = '#999';
+            }
+        });
+
+        // Form submission
         document.getElementById('valuationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            const pinCode = pinCodeInput.value.trim();
+            const propertyType = document.getElementById('propertyType').value;
+            const sqft = parseInt(document.getElementById('sqft').value);
+            const distance = parseInt(document.getElementById('distance').value);
+
+            // Validate PIN code
+            if (!PIN_CODE_DATABASE[pinCode]) {
+                showError('❌ Please enter a valid PIN code from the database');
+                return;
+            }
+
+            const pinData = PIN_CODE_DATABASE[pinCode];
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('result').classList.remove('show');
+            document.getElementById('errorMessage').style.display = 'none';
+            
             try {
                 const response = await fetch('/api/valuate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        city: document.getElementById('city').value,
-                        property_type: document.getElementById('propertyType').value,
-                        sqft: parseInt(document.getElementById('sqft').value),
-                        distance_km: parseInt(document.getElementById('distance').value)
+                        city: pinData.city,
+                        property_type: propertyType,
+                        sqft: sqft,
+                        distance_km: distance
                     })
                 });
+                
                 const data = await response.json();
+                document.getElementById('loading').style.display = 'none';
+                
                 if (data.success) {
-                    const e = data.data;
-                    document.getElementById('result').innerHTML = `<p><strong>Estimate:</strong> ₹${(e.estimate_min/10000000).toFixed(1)}Cr - ₹${(e.estimate_max/10000000).toFixed(1)}Cr</p><p><strong>Confidence:</strong> ${e.confidence}</p>`;
+                    const estimate = data.data;
+                    const minPrice = (estimate.estimate_min / 10000000).toFixed(1);
+                    const maxPrice = (estimate.estimate_max / 10000000).toFixed(1);
+                    const midPrice = (estimate.estimate_mid / 10000000).toFixed(2);
+                    
+                    const html = `
+                        <div class="result-item">
+                            <span class="result-label">📍 Location:</span>
+                            <span class="result-value">${pinData.area}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">🏠 Property Type:</span>
+                            <span class="result-value">${propertyType.charAt(0).toUpperCase() + propertyType.slice(1)}</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">📐 Size:</span>
+                            <span class="result-value">${sqft} sqft</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">📊 Confidence:</span>
+                            <span class="result-value">${estimate.confidence}</span>
+                        </div>
+                        <div class="estimate-box">
+                            <div style="font-size: 12px; color: #999; margin-bottom: 8px;">Estimated Property Value</div>
+                            <div class="estimate-range">₹${minPrice}Cr - ₹${maxPrice}Cr</div>
+                            <div style="text-align: center; font-size: 12px; color: #999; margin-top: 8px;">Mid-Range: ₹${midPrice}Cr</div>
+                        </div>
+                    `;
+                    document.getElementById('resultContent').innerHTML = html;
                     document.getElementById('result').classList.add('show');
                 } else {
-                    throw new Error(data.error);
+                    showError('❌ ' + (data.error || 'Failed to get valuation'));
                 }
             } catch (error) {
-                document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('errorMessage').textContent = 'Error: ' + error.message;
+                document.getElementById('loading').style.display = 'none';
+                showError('❌ Error: ' + error.message);
             }
         });
+
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
     </script>
 </body>
 </html>
