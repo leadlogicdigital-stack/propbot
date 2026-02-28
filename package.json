@@ -4,11 +4,9 @@
   "description": "PropBot - AI Property Valuation Chatbot",
   "main": "api/server.js",
   "scripts": {
-    "start": "cd api && npm start",
-    "build": "cd frontend && npm install && npm run build",
-    "install-all": "npm install && cd api && npm install && cd ../frontend && npm install"
+    "start": "cd api && npm install && npm start",
+    "heroku-postbuild": "cd api && npm install && cd ../frontend && npm install && npm run build"
   },
-  "dependencies": {},
   "engines": {
     "node": "22.x"
   }
