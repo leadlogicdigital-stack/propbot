@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropBot - AI Property Valuation Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .content {
+            padding: 60px 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .link-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .link-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .link-card h3 {
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .link-card p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .link-card .url {
+            font-size: 0.85em;
+            color: #999;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 8px;
+            border-radius: 6px;
+            margin-top: auto;
+        }
+
+        .link-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .features {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .features h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+        }
+
+        .feature-item:before {
+            content: "✓";
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .tech-badge {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .logo {
+            font-size: 2em;
+        }
+
+        code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                <span class="logo">🏠</span>
+                PropBot
+            </h1>
+            <p>AI-Powered Real Estate Property Valuation Platform</p>
+            <div class="status-badge">🟢 Phase 2 Complete - Production Ready</div>
+        </div>
+
+        <div class="content">
+            <!-- Quick Links Section -->
+            <div class="section">
+                <h2><span>🔗</span> Quick Links</h2>
+                <div class="links-grid">
+                    <a href="https://propbot.vercel.app" class="link-card" target="_blank">
+                        <h3>🚀 Live Application</h3>
+                        <p>Experience the PropBot valuation platform</p>
+                        <div class="url">https://propbot.vercel.app</div>
+                    </a>
+
+                    <a href="https://github.com/leadlogicdigital-stack/propbot" class="link-card" target="_blank">
+                        <h3>💻 GitHub Repository</h3>
+                        <p>Source code and documentation</p>
+                        <div class="url">github.com/leadlogicdigital-stack/propbot</div>
+                    </a>
+
+                    <a href="https://propbot-api.onrender.com/api/health" class="link-card" target="_blank">
+                        <h3>⚙️ API Server</h3>
+                        <p>REST API for property valuations</p>
+                        <div class="url">propbot-api.onrender.com</div>
+                    </a>
+
+                    <a href="https://github.com/leadlogicdigital-stack/propbot/blob/main/COMPLETE_SYSTEM_WALKTHROUGH.md" class="link-card" target="_blank">
+                        <h3>📖 Documentation</h3>
+                        <p>Complete system architecture & guides</p>
+                        <div class="url">System Walkthrough</div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="section">
+                <div class="features">
+                    <h3>✨ Key Features</h3>
+                    <div class="features-list">
+                        <div class="feature-item">Real-time Property Valuations</div>
+                        <div class="feature-item">PIN Code-Based Pricing</div>
+                        <div class="feature-item">Bangalore & Mysore Coverage</div>
+                        <div class="feature-item">Distance-Based Multipliers</div>
+                        <div class="feature-item">Multiple Property Types</div>
+                        <div class="feature-item">Government Guidance Values</div>
+                        <div class="feature-item">Lead Capture System</div>
+                        <div class="feature-item">Email Notifications</div>
+                    </div>
+
+                    <h3 style="margin-top: 30px;">🛠️ Technology Stack</h3>
+                    <div class="tech-stack">
+                        <div class="tech-badge">React 18</div>
+                        <div class="tech-badge">Next.js 14</div>
+                        <div class="tech-badge">Node.js</div>
+                        <div class="tech-badge">Express</div>
+                        <div class="tech-badge">Python</div>
+                        <div class="tech-badge">Tailwind CSS</div>
+                        <div class="tech-badge">Vercel</div>
+                        <div class="tech-badge">GitHub</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Info Section -->
+            <div class="section">
+                <h2><span>📊</span> Project Information</h2>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; line-height: 1.8;">
+                    <p><strong>Status:</strong> Phase 2 Complete - Production Ready</p>
+                    <p><strong>Latest Commit:</strong> Phase 2 - API Integration & Advanced Features</p>
+                    <p><strong>Coverage Areas:</strong> Bangalore (13 urban + 5 periphery) & Mysore (19 areas)</p>
+                    <p><strong>Property Types:</strong> Apartments, Plots, Villas, Agricultural Land</p>
+                    <p><strong>Algorithm:</strong> PIN Code-based with government guidance values</p>
+                    <p><strong>Deployment:</strong> Vercel (Frontend) + Render (API) + Python Engine</p>
+                </div>
+            </div>
+
+            <!-- Getting Started Section -->
+            <div class="section">
+                <h2><span>🚀</span> Getting Started</h2>
+                <div style="background: #f0f4ff; padding: 20px; border-radius: 12px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">For Developers:</h3>
+                    <ol style="margin-left: 20px; color: #555; line-height: 2;">
+                        <li>Clone: <code>git clone https://github.com/leadlogicdigital-stack/propbot.git</code></li>
+                        <li>Install dependencies: <code>npm install</code></li>
+                        <li>Start frontend: <code>cd frontend && npm run dev</code></li>
+                        <li>Start API: <code>cd api && npm run dev</code></li>
+                        <li>View at <code>http://localhost:3000</code></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>PropBot</strong> - AI Property Valuation Platform for India</p>
+            <p>Built for real estate professionals | Powered by advanced algorithms</p>
+            <div class="last-updated">Last Updated: March 8, 2026</div>
+        </div>
+    </div>
+</body>
+</html>
