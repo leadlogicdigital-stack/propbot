@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Leads - PropBot Sales Executive Portal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .header-title h1 {
+      color: #333;
+      font-size: 28px;
+    }
+
+    .header-title .icon {
+      font-size: 32px;
+    }
+
+    .logout-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #c82333;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .coin-panel {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .coin-balance {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .coin-number {
+      font-size: 64px;
+      font-weight: bold;
+      margin: 15px 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .coin-label {
+      font-size: 16px;
+      opacity: 0.9;
+      margin-top: 10px;
+    }
+
+    .achievement {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      border-left: 4px solid #ffc107;
+    }
+
+    .achievement-title {
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .achievement-desc {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+
+    .tabs-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e0e0e0;
+      background: white;
+      padding: 0 20px;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .tab {
+      padding: 15px 20px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      color: #667eea;
+      border-bottom-color: #667eea;
+    }
+
+    .tab-content {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .redemption-packages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .package-card {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 20px;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .package-card:hover {
+      border-color: #667eea;
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .package-card.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .package-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 15px;
+    }
+
+    .package-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .package-cost {
+      background: #667eea;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .package-details {
+      color: #666;
+      font-size: 13px;
+      margin: 10px 0;
+    }
+
+    .package-leads {
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      font-size: 13px;
+      text-align: center;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .package-btn {
+      width: 100%;
+      padding: 10px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .package-btn:hover:not(:disabled) {
+      background: #764ba2;
+    }
+
+    .package-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .leads-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .lead-card {
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 20px;
+      transition: all 0.3s;
+    }
+
+    .lead-card:hover {
+      border-color: #667eea;
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.2);
+    }
+
+    .lead-quality {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .lead-quality.basic {
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .lead-quality.targeted {
+      background: #f3e5f5;
+      color: #7b1fa2;
+    }
+
+    .lead-quality.premium {
+      background: #fff3e0;
+      color: #e65100;
+    }
+
+    .lead-quality.vip {
+      background: #fce4ec;
+      color: #c2185b;
+    }
+
+    .lead-quality.elite {
+      background: #f3e5f5;
+      color: #6a1b9a;
+    }
+
+    .lead-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .lead-info {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lead-interest {
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+      font-size: 13px;
+    }
+
+    .interest-label {
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .lead-action {
+      width: 100%;
+      padding: 10px;
+      background: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .lead-action:hover {
+      background: #218838;
+    }
+
+    .transaction-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .transaction-table th {
+      background: #f5f5f5;
+      padding: 12px;
+      text-align: left;
+      font-weight: bold;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .transaction-table td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .transaction-table tr:hover {
+      background: #f9f9f9;
+    }
+
+    .transaction-earned {
+      color: #28a745;
+      font-weight: bold;
+    }
+
+    .transaction-redeemed {
+      color: #dc3545;
+      font-weight: bold;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-close {
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .modal-close:hover {
+      color: #333;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: 10px;
+      color: #333;
+    }
+
+    .coin-check {
+      padding: 15px;
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+
+    .coin-check.insufficient {
+      background: #ffebee;
+      border-left-color: #f44336;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      background: #28a745;
+      color: white;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      display: none;
+      z-index: 2000;
+      animation: slideIn 0.3s ease;
+    }
+
+    .notification.show {
+      display: block;
+    }
+
+    .notification.error {
+      background: #dc3545;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .redemption-packages,
+      .leads-list {
+        grid-template-columns: 1fr;
+      }
+
+      .header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-title">
+        <div class="icon">🏢</div>
+        <div>
+          <h1>My Leads Portal</h1>
+          <p style="color: #666; margin-top: 5px;">Real Estate Sales Executive Rewards Program</p>
+        </div>
+      </div>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Main Grid: Coins + Quick Stats -->
+    <div class="main-grid">
+      <div class="coin-panel">
+        <div class="coin-balance">
+          <div>💰 Your Coin Balance</div>
+          <div class="coin-number" id="coinBalance">0</div>
+          <div class="coin-label">Coins Available for Redemption</div>
+        </div>
+
+        <div id="nextAchievement" style="display: none; margin-bottom: 20px; padding: 15px; background: rgba(255, 255, 255, 0.1); border-radius: 8px; text-align: center;">
+          <div style="font-size: 14px; opacity: 0.9; margin-bottom: 5px;">Next Milestone</div>
+          <div style="font-size: 18px; font-weight: bold;" id="nextAchievementText">3 more submissions for +5 bonus coins!</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="totalEarned">0</div>
+            <div class="stat-label">Total Earned</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="totalRedeemed">0</div>
+            <div class="stat-label">Total Redeemed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="submissionCount">0</div>
+            <div class="stat-label">Submissions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="userTier">Bronze</div>
+            <div class="stat-label">Current Tier</div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+          <h2 style="color: #333; margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+            <span>🎯</span> How It Works
+          </h2>
+          <div style="color: #666; line-height: 1.8; font-size: 14px;">
+            <p style="margin-bottom: 15px;">
+              <strong>📝 Submit Properties</strong><br>
+              Every approved property submission earns you coins.
+            </p>
+            <p style="margin-bottom: 15px;">
+              <strong>💎 Earn Coins</strong><br>
+              1 coin per submission + bonus coins for streaks and milestones.
+            </p>
+            <p style="margin-bottom: 15px;">
+              <strong>🎁 Redeem Leads</strong><br>
+              Use coins to unlock high-quality buyer leads from our database.
+            </p>
+            <p>
+              <strong>🤝 Close Deals</strong><br>
+              Contact leads, build relationships, and close sales!
+            </p>
+          </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+          <h3 style="margin-bottom: 10px;">💡 Pro Tip</h3>
+          <p style="font-size: 14px;">Keep submitting properties consistently! After 5 consecutive approved submissions, you'll earn a 5-coin bonus. After 10, you'll get 10 bonus coins!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div style="background: white; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow: hidden;">
+      <div class="tabs-container">
+        <button class="tab active" onclick="switchTab('packages')">🎁 Redemption Packages</button>
+        <button class="tab" onclick="switchTab('available-leads')">📋 Available Leads</button>
+        <button class="tab" onclick="switchTab('my-leads')">⭐ My Redeemed Leads</button>
+        <button class="tab" onclick="switchTab('history')">📊 Transaction History</button>
+      </div>
+
+      <!-- Redemption Packages Tab -->
+      <div id="packages" class="tab-content active">
+        <h2 style="margin-bottom: 20px; color: #333;">Redemption Packages</h2>
+        <div class="redemption-packages" id="packagesContainer">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Available Leads Tab -->
+      <div id="available-leads" class="tab-content">
+        <h2 style="margin-bottom: 20px; color: #333;">Available Leads</h2>
+        <div class="leads-list" id="availableLeadsContainer">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- My Redeemed Leads Tab -->
+      <div id="my-leads" class="tab-content">
+        <h2 style="margin-bottom: 20px; color: #333;">My Redeemed Leads</h2>
+        <div id="myLeadsContainer">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Transaction History Tab -->
+      <div id="history" class="tab-content">
+        <h2 style="margin-bottom: 20px; color: #333;">Transaction History</h2>
+        <div id="historyContainer">
+          <!-- Will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div id="notification" class="notification"></div>
+
+  <!-- Lead Detail Modal -->
+  <div id="leadModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <div id="leadDetailContent"></div>
+    </div>
+  </div>
+
+  <script>
+    let currentAgent = null;
+    let agentCoins = null;
+    let packages = [];
+    let allLeads = [];
+    let redeemedLeads = [];
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+      const agentData = sessionStorage.getItem('agentData');
+      if (!agentData) {
+        window.location.href = 'agent-login.html';
+        return;
+      }
+
+      currentAgent = JSON.parse(agentData);
+      loadAgentCoins();
+      loadPackages();
+      loadAvailableLeads();
+      loadMyRedeemedLeads();
+      loadTransactionHistory();
+    });
+
+    // Load agent coins data
+    async function loadAgentCoins() {
+      try {
+        const response = await fetch(`/api/sales-executive/${currentAgent.email}/coins`);
+        const result = await response.json();
+
+        if (result.success) {
+          agentCoins = result.data;
+          document.getElementById('coinBalance').textContent = agentCoins.current_balance;
+          document.getElementById('totalEarned').textContent = agentCoins.total_earned;
+          document.getElementById('totalRedeemed').textContent = agentCoins.total_redeemed;
+          document.getElementById('submissionCount').textContent = agentCoins.submission_count;
+          document.getElementById('userTier').textContent = agentCoins.tier;
+
+          // Show next achievement
+          if (agentCoins.next_bonus_at) {
+            const nextMilestone = agentCoins.next_bonus_at;
+            const remaining = nextMilestone - agentCoins.submission_streak;
+            document.getElementById('nextAchievement').style.display = 'block';
+            document.getElementById('nextAchievementText').textContent =
+              `${remaining} more submission${remaining !== 1 ? 's' : ''} for +5 bonus coins!`;
+          }
+        }
+      } catch (error) {
+        console.error('Error loading coins:', error);
+      }
+    }
+
+    // Load redemption packages
+    async function loadPackages() {
+      try {
+        const response = await fetch('/api/sales-executive/packages');
+        const result = await response.json();
+
+        if (result.success) {
+          packages = result.data.standard_tiers;
+          renderPackages();
+        }
+      } catch (error) {
+        console.error('Error loading packages:', error);
+      }
+    }
+
+    // Render packages
+    function renderPackages() {
+      const container = document.getElementById('packagesContainer');
+      container.innerHTML = packages.map(pkg => `
+        <div class="package-card ${agentCoins && agentCoins.current_balance < pkg.coin_cost ? 'disabled' : ''}">
+          <div class="package-header">
+            <div class="package-title">${pkg.name}</div>
+            <div class="package-cost">${pkg.coin_cost} 💰</div>
+          </div>
+          <div class="package-leads">${pkg.lead_count} Lead${pkg.lead_count > 1 || pkg.lead_count.includes('-') ? 's' : ''}</div>
+          <div class="package-details">${pkg.description}</div>
+          <button class="package-btn"
+            onclick="redeemPackage('${pkg.name}', ${pkg.coin_cost}, ${pkg.lead_count})"
+            ${agentCoins && agentCoins.current_balance < pkg.coin_cost ? 'disabled' : ''}>
+            ${agentCoins && agentCoins.current_balance >= pkg.coin_cost ? '✓ Redeem Now' : 'Insufficient Coins'}
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Load available leads
+    async function loadAvailableLeads() {
+      try {
+        const response = await fetch(`/api/sales-executive/${currentAgent.email}/available-leads`);
+        const result = await response.json();
+
+        if (result.success) {
+          allLeads = result.data;
+          renderAvailableLeads();
+        }
+      } catch (error) {
+        console.error('Error loading available leads:', error);
+      }
+    }
+
+    // Render available leads
+    function renderAvailableLeads() {
+      const container = document.getElementById('availableLeadsContainer');
+      if (allLeads.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📭</div><p>No leads available at the moment. Check back soon!</p></div>';
+        return;
+      }
+
+      container.innerHTML = allLeads.map(lead => `
+        <div class="lead-card">
+          <div class="lead-quality ${lead.quality_tier}">${lead.quality_tier}</div>
+          <div class="lead-name">${lead.buyer_name}</div>
+          <div class="lead-info">📱 ${lead.buyer_phone}</div>
+          <div class="lead-info">📧 ${lead.buyer_email}</div>
+          <div class="lead-info">🌟 ${lead.interest_level}</div>
+          <div class="lead-interest">
+            <div class="interest-label">${lead.property_interest.property_type} in ${lead.property_interest.locality}</div>
+            <div style="font-size: 12px; margin-top: 5px;">Budget: ${lead.property_interest.budget_range.min} - ${lead.property_interest.budget_range.max}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load my redeemed leads
+    async function loadMyRedeemedLeads() {
+      try {
+        // In a real app, this would fetch from an API
+        // For now, we'll check localStorage
+        const stored = localStorage.getItem(`redeemedLeads_${currentAgent.email}`);
+        redeemedLeads = stored ? JSON.parse(stored) : [];
+        renderMyRedeemedLeads();
+      } catch (error) {
+        console.error('Error loading redeemed leads:', error);
+      }
+    }
+
+    // Render my redeemed leads
+    function renderMyRedeemedLeads() {
+      const container = document.getElementById('myLeadsContainer');
+      if (redeemedLeads.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🎯</div><p>You haven\'t redeemed any leads yet. Earn coins by submitting more properties!</p></div>';
+        return;
+      }
+
+      container.innerHTML = redeemedLeads.map(lead => `
+        <div class="lead-card" style="margin-bottom: 15px;">
+          <div class="lead-quality ${lead.quality_tier}">${lead.quality_tier}</div>
+          <div class="lead-name">${lead.buyer_name}</div>
+          <div class="lead-info">📱 ${lead.buyer_phone}</div>
+          <div class="lead-info">📧 ${lead.buyer_email}</div>
+          <div class="lead-info">🌟 ${lead.interest_level}</div>
+          <div class="lead-interest">
+            <div class="interest-label">${lead.property_interest.property_type} in ${lead.property_interest.locality}</div>
+            <div style="font-size: 12px; margin-top: 5px;">Budget: ${lead.property_interest.budget_range.min} - ${lead.property_interest.budget_range.max}</div>
+            <div style="font-size: 12px; margin-top: 8px; padding-top: 8px; border-top: 1px solid #eee; color: #28a745; font-weight: bold;">
+              ✓ Redeemed on ${new Date(lead.redeemed_date).toLocaleDateString()}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Load transaction history
+    async function loadTransactionHistory() {
+      try {
+        const response = await fetch(`/api/sales-executive/${currentAgent.email}/transactions`);
+        const result = await response.json();
+
+        if (result.success) {
+          renderTransactionHistory(result.data);
+        }
+      } catch (error) {
+        console.error('Error loading history:', error);
+      }
+    }
+
+    // Render transaction history
+    function renderTransactionHistory(transactions) {
+      const container = document.getElementById('historyContainer');
+      if (transactions.length === 0) {
+        container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📊</div><p>No transactions yet.</p></div>';
+        return;
+      }
+
+      let html = '<table class="transaction-table"><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Reason</th></tr></thead><tbody>';
+      transactions.forEach(t => {
+        const date = new Date(t.timestamp).toLocaleDateString() + ' ' + new Date(t.timestamp).toLocaleTimeString();
+        const amount = t.type === 'earned' ? `<span class="transaction-earned">+${t.amount}</span>` : `<span class="transaction-redeemed">-${t.amount}</span>`;
+        html += `<tr><td>${date}</td><td>${t.type === 'earned' ? '💰 Earned' : '🎁 Redeemed'}</td><td>${amount}</td><td>${t.reason}</td></tr>`;
+      });
+      html += '</tbody></table>';
+      container.innerHTML = html;
+    }
+
+    // Switch tabs
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // Redeem package
+    async function redeemPackage(name, cost, count) {
+      if (!agentCoins || agentCoins.current_balance < cost) {
+        showNotification('Insufficient coins for this package', true);
+        return;
+      }
+
+      // Simulate selecting leads for redemption
+      const leadsToRedeem = allLeads.filter(l => l.status === 'available').slice(0, parseInt(count) || 1);
+
+      if (leadsToRedeem.length === 0) {
+        showNotification('No leads available for redemption', true);
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/sales-executive/${currentAgent.email}/redeem-leads`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lead_ids: leadsToRedeem.map(l => l.lead_id),
+            coin_cost: cost
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // Update redeemed leads
+          redeemedLeads = [...redeemedLeads, ...result.redeemed_leads];
+          localStorage.setItem(`redeemedLeads_${currentAgent.email}`, JSON.stringify(redeemedLeads));
+
+          // Reload data
+          await loadAgentCoins();
+          await loadAvailableLeads();
+          await loadMyRedeemedLeads();
+          await loadTransactionHistory();
+
+          renderPackages();
+          showNotification(`✓ Successfully redeemed ${result.leads_redeemed} lead(s)!`);
+        } else {
+          showNotification(result.error || 'Redemption failed', true);
+        }
+      } catch (error) {
+        console.error('Error redeeming leads:', error);
+        showNotification('Error redeeming leads', true);
+      }
+    }
+
+    // Show notification
+    function showNotification(message, isError = false) {
+      const notif = document.getElementById('notification');
+      notif.textContent = message;
+      notif.classList.add('show');
+      if (isError) notif.classList.add('error');
+      else notif.classList.remove('error');
+      setTimeout(() => notif.classList.remove('show'), 3000);
+    }
+
+    // Logout
+    function logout() {
+      sessionStorage.removeItem('agentData');
+      window.location.href = 'agent-login.html';
+    }
+
+    // Modal functions
+    function closeModal() {
+      document.getElementById('leadModal').classList.remove('active');
+    }
+
+    window.onclick = (event) => {
+      const modal = document.getElementById('leadModal');
+      if (event.target === modal) {
+        modal.classList.remove('active');
+      }
+    };
+  </script>
+</body>
+</html>

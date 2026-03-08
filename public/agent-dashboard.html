@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Dashboard - PropBot</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #667eea;
+      --secondary: #764ba2;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --light: #f3f4f6;
+      --dark: #1f2937;
+      --border: #e5e7eb;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f9fafb;
+      color: var(--dark);
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 25px 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: -1px;
+    }
+
+    .agent-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .agent-name {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .agent-email {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .coin-display {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 15px 25px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .coin-icon {
+      font-size: 32px;
+    }
+
+    .coin-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .coin-label {
+      font-size: 12px;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .coin-amount {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logout-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      font-size: 14px;
+    }
+
+    .logout-btn:hover {
+      background: white;
+      color: var(--primary);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 4px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+
+    .stat-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .stat-desc {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    /* Tier Badge */
+    .tier-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .tier-bronze {
+      background: #d1a672;
+      color: white;
+    }
+
+    .tier-silver {
+      background: #c0c0c0;
+      color: white;
+    }
+
+    .tier-gold {
+      background: #ffd700;
+      color: #333;
+    }
+
+    .tier-platinum {
+      background: #e5e4e2;
+      color: #333;
+    }
+
+    /* Tab Navigation */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 15px 25px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #6b7280;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s;
+      position: relative;
+      bottom: -2px;
+    }
+
+    .tab-btn:hover {
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Section Styles */
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 25px;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 28px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+      font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    /* Button Styles */
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+      background: var(--light);
+    }
+
+    .btn-success {
+      background: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #dc2626;
+    }
+
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 13px;
+    }
+
+    /* CSV Upload Section */
+    .csv-upload-area {
+      border: 2px dashed var(--primary);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 20px;
+    }
+
+    .csv-upload-area:hover {
+      border-color: var(--secondary);
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    }
+
+    .csv-upload-area.dragging {
+      border-color: var(--success);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .upload-text {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .upload-subtext {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    #csvFile {
+      display: none;
+    }
+
+    /* Leads Grid */
+    .leads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+    }
+
+    .lead-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      border: 2px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .lead-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .lead-card.premium {
+      border-color: #fbbf24;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(251, 146, 60, 0.05) 100%);
+    }
+
+    .lead-card.vip {
+      border-color: #a78bfa;
+      background: linear-gradient(135deg, rgba(167, 139, 250, 0.05) 0%, rgba(168, 85, 247, 0.05) 100%);
+    }
+
+    .lead-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .lead-tier {
+      display: inline-block;
+      padding: 4px 12px;
+      background: var(--light);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .lead-tier.premium {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .lead-tier.vip {
+      background: #ede9fe;
+      color: #7c3aed;
+    }
+
+    .lead-detail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      margin-bottom: 8px;
+      color: #6b7280;
+    }
+
+    .lead-detail-icon {
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .lead-property {
+      background: var(--light);
+      padding: 10px;
+      border-radius: 8px;
+      margin: 12px 0;
+      font-size: 13px;
+    }
+
+    .lead-property strong {
+      color: var(--dark);
+    }
+
+    .lead-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 15px;
+      flex-wrap: wrap;
+    }
+
+    .lead-action-btn {
+      flex: 1;
+      min-width: 80px;
+      padding: 8px 12px;
+      font-size: 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .lead-action-btn.call {
+      background: #dbeafe;
+      color: #0369a1;
+    }
+
+    .lead-action-btn.call:hover {
+      background: #0284c7;
+      color: white;
+    }
+
+    .lead-action-btn.email {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .lead-action-btn.email:hover {
+      background: #16a34a;
+      color: white;
+    }
+
+    .lead-action-btn.copy {
+      background: #f3e8ff;
+      color: #7c3aed;
+    }
+
+    .lead-action-btn.copy:hover {
+      background: #7c3aed;
+      color: white;
+    }
+
+    /* Redemption Packages */
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .package-card {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+    }
+
+    .package-card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 8px 16px rgba(102, 126, 234, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .package-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .package-cost {
+      font-size: 36px;
+      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .package-cost-label {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 15px;
+    }
+
+    .package-leads {
+      background: var(--light);
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .package-desc {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 20px;
+      min-height: 40px;
+    }
+
+    .package-status {
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .package-status.available {
+      background: #dcfce7;
+      color: #15803d;
+    }
+
+    .package-status.insufficient {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Transaction History */
+    .transactions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .transaction {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: var(--light);
+      border-radius: 8px;
+      border-left: 4px solid var(--primary);
+      transition: all 0.3s;
+    }
+
+    .transaction:hover {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .transaction.earned {
+      border-left-color: var(--success);
+    }
+
+    .transaction.redeemed {
+      border-left-color: var(--danger);
+    }
+
+    .transaction-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .transaction-type {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+
+    .transaction-detail {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    .transaction-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .transaction-amount {
+      font-size: 18px;
+      font-weight: bold;
+      min-width: 70px;
+      text-align: right;
+    }
+
+    .transaction-amount.earned {
+      color: var(--success);
+    }
+
+    .transaction-amount.earned::before {
+      content: '+';
+    }
+
+    .transaction-amount.redeemed {
+      color: var(--danger);
+    }
+
+    .transaction-amount.redeemed::before {
+      content: '-';
+    }
+
+    .transaction-date {
+      font-size: 12px;
+      color: #9ca3af;
+      min-width: 80px;
+      text-align: right;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: var(--dark);
+    }
+
+    .modal-body {
+      margin-bottom: 30px;
+    }
+
+    .modal-footer {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #6b7280;
+    }
+
+    .empty-state-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .empty-state-desc {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* Loading */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 40px;
+      color: var(--primary);
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--light);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px 15px;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      .header-right {
+        gap: 20px;
+        width: 100%;
+        flex-direction: column;
+      }
+
+      .coin-display {
+        justify-content: center;
+        width: 100%;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        gap: 5px;
+      }
+
+      .tab-btn {
+        padding: 12px 15px;
+        font-size: 14px;
+      }
+
+      .section {
+        padding: 20px;
+      }
+
+      .leads-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .packages-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .transaction {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .transaction-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="logo">🏠 PropBot</div>
+        <div class="agent-info">
+          <div class="agent-name" id="agentName">Loading...</div>
+          <div class="agent-email" id="agentEmail">agent@propbot.com</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="coin-display">
+          <div class="coin-icon">💰</div>
+          <div class="coin-info">
+            <div class="coin-label">My Coins</div>
+            <div class="coin-amount" id="coinBalance">0</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Stats Section -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-label">Current Coins</div>
+        <div class="stat-value" id="statCoins">0</div>
+        <div class="stat-desc">Available to spend</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">📊</div>
+        <div class="stat-label">Total Earned</div>
+        <div class="stat-value" id="statEarned">0</div>
+        <div class="stat-desc">All-time earnings</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-label">Submissions</div>
+        <div class="stat-value" id="statSubmissions">0</div>
+        <div class="stat-desc"><span id="submissionStatus">0 pending</span></div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-label">Your Tier</div>
+        <div class="stat-value" id="statTier">Bronze</div>
+        <div id="tierBadge" class="tier-badge tier-bronze">🥉 Bronze</div>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(event, 'submit')">📝 Submit Properties</button>
+      <button class="tab-btn" onclick="switchTab(event, 'redeem')">💎 Redeem Coins</button>
+      <button class="tab-btn" onclick="switchTab(event, 'myLeads')">✅ My Redeemed Leads</button>
+      <button class="tab-btn" onclick="switchTab(event, 'availableLeads')">🔍 Available Leads</button>
+      <button class="tab-btn" onclick="switchTab(event, 'history')">📈 Transaction History</button>
+    </div>
+
+    <!-- Tab 1: Submit Properties -->
+    <div id="submit" class="tab-content active">
+      <div class="section">
+        <div class="section-title">📝 Submit Properties</div>
+
+        <!-- CSV Upload -->
+        <h3 style="margin: 25px 0 15px 0; color: #374151; font-size: 18px;">Bulk Upload (CSV)</h3>
+        <div class="csv-upload-area" id="csvUploadArea" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('csvFile').click()">
+          <div class="upload-icon">📤</div>
+          <div class="upload-text">Drag & drop CSV or click to upload</div>
+          <div class="upload-subtext">Max 500 properties per file • Download template below</div>
+          <input type="file" id="csvFile" accept=".csv" onchange="handleCSVUpload(event)">
+        </div>
+
+        <button class="btn btn-secondary" onclick="downloadCSVTemplate()" style="width: 100%; margin-bottom: 20px;">
+          📥 Download CSV Template
+        </button>
+
+        <!-- CSV Upload Result -->
+        <div id="uploadResult" style="display: none; margin-bottom: 20px; padding: 20px; background: #f0fdf4; border-radius: 8px; border-left: 4px solid #10b981;">
+          <div style="font-weight: 600; margin-bottom: 10px; color: #15803d;">✅ Upload Successful!</div>
+          <div id="uploadStats" style="color: #6b7280;"></div>
+        </div>
+
+        <!-- Manual Single Form -->
+        <hr style="margin: 30px 0; border: none; border-top: 2px solid #e5e7eb;">
+        <h3 style="margin: 25px 0 15px 0; color: #374151; font-size: 18px;">Or Submit Manually</h3>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div class="form-group">
+            <label>Property Type *</label>
+            <select id="propertyType">
+              <option value="">Select Type</option>
+              <option value="apartment">Apartment</option>
+              <option value="plot">Plot</option>
+              <option value="villa">Villa</option>
+              <option value="commercial">Commercial</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>PIN Code *</label>
+            <input type="text" id="pinCode" placeholder="e.g., 560034">
+          </div>
+
+          <div class="form-group">
+            <label>Locality / Area *</label>
+            <input type="text" id="locality" placeholder="e.g., Koramangala">
+          </div>
+
+          <div class="form-group">
+            <label>Size (sqft/acres) *</label>
+            <input type="number" id="propertySize" placeholder="e.g., 1200">
+          </div>
+
+          <div class="form-group">
+            <label>Cost Per Sqft (₹) *</label>
+            <input type="number" id="costPerSqft" placeholder="e.g., 18000">
+          </div>
+
+          <div class="form-group">
+            <label>Total Cost (₹) *</label>
+            <input type="number" id="totalCost" placeholder="e.g., 2160000">
+          </div>
+
+          <div class="form-group">
+            <label>Bedrooms</label>
+            <input type="number" id="bedrooms" placeholder="e.g., 2">
+          </div>
+
+          <div class="form-group">
+            <label>Amenities</label>
+            <input type="text" id="amenities" placeholder="e.g., Pool, Gym">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Additional Info</label>
+          <textarea id="additionalInfo" placeholder="Any other details..." style="min-height: 100px;"></textarea>
+        </div>
+
+        <button class="btn btn-primary" onclick="submitProperty()" style="width: 100%;">
+          ✅ Submit Property
+        </button>
+      </div>
+
+      <!-- My Submissions -->
+      <div class="section">
+        <div class="section-title">📋 My Submissions</div>
+        <div id="mySubmissionsList" class="empty-state">
+          <div class="empty-state-icon">📭</div>
+          <div class="empty-state-title">No submissions yet</div>
+          <div class="empty-state-desc">Submit your first property to see it here</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Redeem Coins -->
+    <div id="redeem" class="tab-content">
+      <div class="section">
+        <div class="section-title">💎 Redeem Your Coins for Leads</div>
+
+        <div style="background: #eff6ff; border: 2px solid #0ea5e9; border-radius: 8px; padding: 15px; margin-bottom: 25px;">
+          <strong style="color: #0369a1;">💡 Tip:</strong> Each tier gives you access to different quality leads. Higher tiers include more leads and better quality buyers!
+        </div>
+
+        <div id="packagesContainer" class="packages-grid">
+          <div class="loading active"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: My Redeemed Leads -->
+    <div id="myLeads" class="tab-content">
+      <div class="section">
+        <div class="section-title">✅ My Redeemed Leads</div>
+        <div id="redeemedLeadsList" class="empty-state">
+          <div class="empty-state-icon">📪</div>
+          <div class="empty-state-title">No leads redeemed yet</div>
+          <div class="empty-state-desc">Redeem your coins to unlock buyer leads</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Available Leads -->
+    <div id="availableLeads" class="tab-content">
+      <div class="section">
+        <div class="section-title">🔍 Available Leads to Redeem</div>
+
+        <!-- Filter Buttons -->
+        <div style="display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap;">
+          <button class="btn btn-secondary" onclick="filterLeads('all')" style="border-color: var(--primary); background: var(--primary); color: white;">All Leads</button>
+          <button class="btn btn-secondary" onclick="filterLeads('basic')">Basic 🟢</button>
+          <button class="btn btn-secondary" onclick="filterLeads('targeted')">Targeted 🔵</button>
+          <button class="btn btn-secondary" onclick="filterLeads('premium')">Premium 🟡</button>
+          <button class="btn btn-secondary" onclick="filterLeads('vip')">VIP 🟣</button>
+          <button class="btn btn-secondary" onclick="filterLeads('elite')">Elite ⭐</button>
+        </div>
+
+        <div id="availableLeadsList" class="leads-grid">
+          <div class="loading active"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Transaction History -->
+    <div id="history" class="tab-content">
+      <div class="section">
+        <div class="section-title">📈 Transaction History</div>
+        <div id="transactionsList" class="transactions-list">
+          <div class="loading active"><div class="spinner"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div id="redeemModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">Confirm Redemption</div>
+      <div class="modal-body">
+        <div style="margin-bottom: 20px;">
+          <strong style="display: block; margin-bottom: 8px;">Package:</strong>
+          <div id="modalPackageName" style="font-size: 18px; color: var(--primary);"></div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <strong style="display: block; margin-bottom: 8px;">Coin Cost:</strong>
+          <div id="modalCoinCost" style="font-size: 24px; font-weight: bold; color: #dc2626;"></div>
+        </div>
+        <div style="margin-bottom: 20px;">
+          <strong style="display: block; margin-bottom: 8px;">Your Current Balance:</strong>
+          <div id="modalCurrentBalance" style="font-size: 18px; color: #10b981;"></div>
+        </div>
+        <div style="background: #fef3c7; border: 2px solid #fbbf24; border-radius: 8px; padding: 12px; margin-bottom: 20px;">
+          <strong style="color: #d97706;">After Redemption:</strong>
+          <div id="modalAfterBalance" style="color: #d97706;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('redeemModal')">Cancel</button>
+        <button class="btn btn-success" onclick="confirmRedemption()">Confirm & Redeem</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const API_BASE = 'http://localhost:3001';
+    let currentAgentId = 'agent@propbot.com'; // Replace with actual agent ID from auth
+    let currentPackage = null;
+    let agentData = {};
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadAgentData();
+      loadCoinBalance();
+      loadRedeemedLeads();
+      loadAvailableLeads();
+      loadTransactions();
+      loadPackages();
+    });
+
+    // Tab Switching
+    function switchTab(event, tabName) {
+      event.preventDefault();
+
+      // Update active tab button
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Update active tab content
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+
+      // Reload data if needed
+      if (tabName === 'availableLeads') loadAvailableLeads();
+      if (tabName === 'myLeads') loadRedeemedLeads();
+      if (tabName === 'history') loadTransactions();
+    }
+
+    // Load Agent Data
+    async function loadAgentData() {
+      try {
+        const response = await fetch(`${API_BASE}/api/sales-executive/${currentAgentId}/coins`);
+        const data = await response.json();
+
+        if (data.success) {
+          agentData = data.data;
+          document.getElementById('agentName').textContent = `Welcome, Agent!`;
+          updateUIWithAgentData();
+        }
+      } catch (error) {
+        console.error('Failed to load agent data:', error);
+      }
+    }
+
+    // Load Coin Balance
+    async function loadCoinBalance() {
+      try {
+        const response = await fetch(`${API_BASE}/api/sales-executive/${currentAgentId}/coins`);
+        const data = await response.json();
+
+        if (data.success) {
+          const coins = data.data.current_balance;
+          document.getElementById('coinBalance').textContent = coins;
+          document.getElementById('statCoins').textContent = coins;
+          document.getElementById('statEarned').textContent = data.data.total_earned;
+          document.getElementById('statSubmissions').textContent = data.data.submission_count;
+          document.getElementById('statTier').textContent = data.data.tier;
+
+          // Update tier badge
+          const tierBadge = document.getElementById('tierBadge');
+          tierBadge.className = `tier-badge tier-${data.data.tier.toLowerCase()}`;
+          const tierEmojis = { bronze: '🥉', silver: '⭐', gold: '🏆', platinum: '💎' };
+          tierBadge.textContent = `${tierEmojis[data.data.tier.toLowerCase()] || '⭐'} ${data.data.tier}`;
+        }
+      } catch (error) {
+        console.error('Failed to load coin balance:', error);
+      }
+    }
+
+    // Load Redeemed Leads
+    async function loadRedeemedLeads() {
+      try {
+        // For now, we'll simulate this with available leads marked as claimed
+        const response = await fetch(`${API_BASE}/api/sales-executive/${currentAgentId}/available-leads`);
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+          // Filter claimed leads (in real system, would have separate endpoint)
+          const claimedLeads = data.data.filter(lead => lead.status === 'claimed');
+
+          if (claimedLeads.length === 0) {
+            document.getElementById('redeemedLeadsList').innerHTML = `
+              <div class="empty-state" style="grid-column: 1 / -1;">
+                <div class="empty-state-icon">📪</div>
+                <div class="empty-state-title">No leads redeemed yet</div>
+                <div class="empty-state-desc">Go to "Redeem Coins" to unlock buyer leads</div>
+              </div>
+            `;
+          } else {
+            document.getElementById('redeemedLeadsList').innerHTML = claimedLeads.map(lead => `
+              <div class="lead-card">
+                <div class="lead-name">${lead.buyer_name}</div>
+                <div class="lead-tier">${lead.quality_tier.charAt(0).toUpperCase() + lead.quality_tier.slice(1)}</div>
+                <div class="lead-detail">
+                  <span class="lead-detail-icon">📞</span>
+                  <span>${lead.buyer_phone}</span>
+                </div>
+                <div class="lead-detail">
+                  <span class="lead-detail-icon">📧</span>
+                  <span>${lead.buyer_email}</span>
+                </div>
+                <div class="lead-property">
+                  <strong>Interest:</strong> ${lead.property_interest.property_type}, ${lead.property_interest.location}
+                </div>
+                <div class="lead-actions">
+                  <button class="lead-action-btn call" onclick="callLead('${lead.buyer_phone}')">📞 Call</button>
+                  <button class="lead-action-btn email" onclick="emailLead('${lead.buyer_email}')">📧 Email</button>
+                  <button class="lead-action-btn copy" onclick="copyLeadDetails('${lead.buyer_name}', '${lead.buyer_phone}', '${lead.buyer_email}')">📋 Copy</button>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load redeemed leads:', error);
+      }
+    }
+
+    // Load Available Leads
+    async function loadAvailableLeads() {
+      try {
+        const response = await fetch(`${API_BASE}/api/sales-executive/${currentAgentId}/available-leads`);
+        const data = await response.json();
+
+        if (data.success) {
+          displayLeads(data.data || []);
+        }
+      } catch (error) {
+        console.error('Failed to load available leads:', error);
+        document.getElementById('availableLeadsList').innerHTML = '<div class="empty-state"><p>Failed to load leads</p></div>';
+      }
+    }
+
+    function displayLeads(leads) {
+      const container = document.getElementById('availableLeadsList');
+
+      if (!leads || leads.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="empty-state-icon">🚫</div>
+            <div class="empty-state-title">No leads available</div>
+            <div class="empty-state-desc">Check back soon for new leads</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = leads.map(lead => `
+        <div class="lead-card ${lead.quality_tier === 'premium' ? 'premium' : lead.quality_tier === 'vip' ? 'vip' : ''}">
+          <div class="lead-name">${lead.buyer_name}</div>
+          <div class="lead-tier ${lead.quality_tier === 'premium' ? 'premium' : lead.quality_tier === 'vip' ? 'vip' : ''}">${lead.quality_tier.charAt(0).toUpperCase() + lead.quality_tier.slice(1)} Tier</div>
+          <div class="lead-detail">
+            <span class="lead-detail-icon">💼</span>
+            <span>Response Rate: ~${lead.interest_level || 50}%</span>
+          </div>
+          <div class="lead-property">
+            <strong>${lead.property_interest.property_type}</strong><br>
+            Location: ${lead.property_interest.location}<br>
+            Budget: ${lead.property_interest.budget_range.min} - ${lead.property_interest.budget_range.max}
+          </div>
+          <button class="btn btn-primary" onclick="redeemLead('${lead.lead_id}')" style="width: 100%; margin-top: 15px;">
+            Redeem Lead
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function filterLeads(tier) {
+      // Update button states
+      document.querySelectorAll('.tab-content')[3].querySelectorAll('.btn').forEach(btn => {
+        btn.style.borderColor = 'var(--border)';
+        btn.style.background = 'white';
+        btn.style.color = 'var(--dark)';
+      });
+      event.target.style.borderColor = 'var(--primary)';
+      event.target.style.background = 'var(--primary)';
+      event.target.style.color = 'white';
+
+      loadAvailableLeads();
+    }
+
+    // Load Packages
+    async function loadPackages() {
+      try {
+        const response = await fetch(`${API_BASE}/api/sales-executive/packages`);
+        const data = await response.json();
+
+        if (data.success) {
+          const container = document.getElementById('packagesContainer');
+          const balance = agentData.current_balance || 0;
+
+          container.innerHTML = data.data.standard_tiers.map(pkg => {
+            const hasEnough = balance >= pkg.coin_cost;
+            return `
+              <div class="package-card">
+                <div class="package-name">${pkg.name}</div>
+                <div class="package-cost">${pkg.coin_cost}</div>
+                <div class="package-cost-label">coins</div>
+                <div class="package-leads">
+                  ${typeof pkg.lead_count === 'number' ? pkg.lead_count : pkg.lead_count} Lead${pkg.lead_count !== '1' ? 's' : ''}
+                </div>
+                <div class="package-desc">${pkg.description}</div>
+                <div class="package-status ${hasEnough ? 'available' : 'insufficient'}">
+                  ${hasEnough ? '✅ You have enough coins' : `❌ Need ${pkg.coin_cost - balance} more coins`}
+                </div>
+                <button class="btn ${hasEnough ? 'btn-primary' : 'btn-secondary'}"
+                        onclick="openRedeemModal(${pkg.tier}, '${pkg.name}', ${pkg.coin_cost})"
+                        ${hasEnough ? '' : 'disabled'} style="width: 100%;">
+                  Redeem Now
+                </button>
+              </div>
+            `;
+          }).join('');
+        }
+      } catch (error) {
+        console.error('Failed to load packages:', error);
+      }
+    }
+
+    // Load Transactions
+    async function loadTransactions() {
+      try {
+        const response = await fetch(`${API_BASE}/api/sales-executive/${currentAgentId}/transactions`);
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+          document.getElementById('transactionsList').innerHTML = data.data.map(tx => {
+            const date = new Date(tx.timestamp);
+            const dateStr = date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            return `
+              <div class="transaction ${tx.type}">
+                <div class="transaction-left">
+                  <div class="transaction-type">${tx.type === 'earned' ? '✅ Coins Earned' : '💎 Coins Redeemed'}</div>
+                  <div class="transaction-detail">${tx.reason}</div>
+                </div>
+                <div class="transaction-right">
+                  <div class="transaction-amount ${tx.type}">${tx.amount}</div>
+                  <div class="transaction-date">${dateStr}</div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          document.getElementById('transactionsList').innerHTML = `
+            <div class="empty-state" style="width: 100%;">
+              <div class="empty-state-icon">📭</div>
+              <div class="empty-state-title">No transactions yet</div>
+              <div class="empty-state-desc">Your coin transactions will appear here</div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Failed to load transactions:', error);
+      }
+    }
+
+    // CSV Functions
+    function downloadCSVTemplate() {
+      const csv = 'Name,Location,PIN Code,Property Size (sqft),Cost Per Sqft (₹),Total Cost (₹),Property Type,Bedrooms,Amenities,Additional Info\n' +
+                  'Rajesh Kumar Property,Koramangala,560034,1200,18000,2160000,Apartment,2,Pool;Gym,Near Metro\n' +
+                  'Priya Singh Plot,JP Nagar,560078,2500,15000,3750000,Plot,0,Community Hall,Corner Plot\n';
+
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'propbot_properties_template.csv';
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    }
+
+    function handleDragOver(e) {
+      e.preventDefault();
+      document.getElementById('csvUploadArea').classList.add('dragging');
+    }
+
+    function handleDragLeave(e) {
+      document.getElementById('csvUploadArea').classList.remove('dragging');
+    }
+
+    function handleDrop(e) {
+      e.preventDefault();
+      document.getElementById('csvUploadArea').classList.remove('dragging');
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        handleCSVUpload({ target: { files } });
+      }
+    }
+
+    function handleCSVUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const csv = e.target.result;
+        const lines = csv.split('\n').filter(line => line.trim());
+
+        if (lines.length < 2) {
+          alert('CSV must have header row and at least one data row');
+          return;
+        }
+
+        // Parse CSV
+        const headers = lines[0].split(',').map(h => h.trim());
+        const dataRows = lines.slice(1);
+        let successful = 0;
+        let failed = 0;
+
+        for (const row of dataRows) {
+          if (!row.trim()) continue;
+
+          const values = row.split(',').map(v => v.trim());
+          const property = {
+            property_type: values[7] || '',
+            pin_code: values[2] || '',
+            locality: values[1] || '',
+            property_size: values[3] || '',
+            cost_per_sqft: values[4] || '',
+            total_cost: values[5] || '',
+            bedrooms: values[8] || '',
+            amenities: values[9] || '',
+            additional_info: values[10] || ''
+          };
+
+          try {
+            const response = await fetch(`${API_BASE}/api/agent/submissions`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ agentId: currentAgentId, property })
+            });
+
+            if (response.ok) successful++;
+            else failed++;
+          } catch (err) {
+            failed++;
+          }
+        }
+
+        // Show result
+        document.getElementById('uploadResult').style.display = 'block';
+        document.getElementById('uploadStats').innerHTML = `
+          <div>✅ ${successful} properties submitted successfully</div>
+          ${failed > 0 ? `<div>❌ ${failed} properties failed</div>` : ''}
+          <div style="margin-top: 10px; font-size: 13px;">All properties are now pending admin review. You'll earn coins when they're approved!</div>
+        `;
+
+        // Reset file input
+        document.getElementById('csvFile').value = '';
+      };
+
+      reader.readAsText(file);
+    }
+
+    // Property Submission
+    async function submitProperty() {
+      const property = {
+        property_type: document.getElementById('propertyType').value,
+        pin_code: document.getElementById('pinCode').value,
+        locality: document.getElementById('locality').value,
+        property_size: document.getElementById('propertySize').value,
+        cost_per_sqft: document.getElementById('costPerSqft').value,
+        total_cost: document.getElementById('totalCost').value,
+        bedrooms: document.getElementById('bedrooms').value,
+        amenities: document.getElementById('amenities').value,
+        additional_info: document.getElementById('additionalInfo').value
+      };
+
+      if (!property.property_type || !property.pin_code || !property.locality) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/api/agent/submissions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ agentId: currentAgentId, property })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          alert('✅ Property submitted successfully! Awaiting admin review.');
+          // Reset form
+          document.getElementById('propertyType').value = '';
+          document.getElementById('pinCode').value = '';
+          document.getElementById('locality').value = '';
+          document.getElementById('propertySize').value = '';
+          document.getElementById('costPerSqft').value = '';
+          document.getElementById('totalCost').value = '';
+          document.getElementById('bedrooms').value = '';
+          document.getElementById('amenities').value = '';
+          document.getElementById('additionalInfo').value = '';
+
+          loadCoinBalance();
+        } else {
+          alert('Failed to submit property: ' + data.error);
+        }
+      } catch (error) {
+        console.error('Submission error:', error);
+        alert('Error submitting property');
+      }
+    }
+
+    // Redemption Functions
+    function openRedeemModal(tier, name, cost) {
+      currentPackage = { tier, name, cost };
+      const balance = agentData.current_balance || 0;
+
+      document.getElementById('modalPackageName').textContent = name;
+      document.getElementById('modalCoinCost').textContent = cost + ' coins';
+      document.getElementById('modalCurrentBalance').textContent = balance + ' coins available';
+      document.getElementById('modalAfterBalance').textContent = 'Balance after: ' + (balance - cost) + ' coins';
+
+      document.getElementById('redeemModal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    async function confirmRedemption() {
+      if (!currentPackage) return;
+
+      try {
+        // For now, we'll redeem the first available lead
+        const response = await fetch(`${API_BASE}/api/sales-executive/${currentAgentId}/available-leads`);
+        const data = await response.json();
+
+        if (data.success && data.data.length > 0) {
+          const availableLead = data.data.find(l => l.status === 'available');
+          if (availableLead) {
+            const redeemResponse = await fetch(`${API_BASE}/api/sales-executive/${currentAgentId}/redeem-leads`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                lead_ids: [availableLead.lead_id],
+                coin_cost: currentPackage.cost
+              })
+            });
+
+            const redeemData = await redeemResponse.json();
+            if (redeemData.success) {
+              alert('✅ Leads redeemed successfully!');
+              closeModal('redeemModal');
+              loadCoinBalance();
+              loadRedeemedLeads();
+              loadAvailableLeads();
+            } else {
+              alert('Redemption failed: ' + redeemData.error);
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Redemption error:', error);
+        alert('Error redeeming leads');
+      }
+    }
+
+    // Lead Actions
+    function callLead(phone) {
+      window.location.href = `tel:${phone}`;
+    }
+
+    function emailLead(email) {
+      window.location.href = `mailto:${email}`;
+    }
+
+    function copyLeadDetails(name, phone, email) {
+      const details = `Name: ${name}\nPhone: ${phone}\nEmail: ${email}`;
+      navigator.clipboard.writeText(details).then(() => {
+        alert('✅ Lead details copied to clipboard!');
+      });
+    }
+
+    function redeemLead(leadId) {
+      alert('Lead redemption is available through the Redeem Coins section!');
+    }
+
+    // Logout
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = 'agent-login.html';
+      }
+    }
+
+    // Update UI
+    function updateUIWithAgentData() {
+      document.getElementById('statEarned').textContent = agentData.total_earned || 0;
+      document.getElementById('statSubmissions').textContent = agentData.submission_count || 0;
+    }
+  </script>
+</body>
+</html>

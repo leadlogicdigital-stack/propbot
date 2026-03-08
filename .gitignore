@@ -10,3 +10,10 @@ venv/
 build/
 dist/
 *.log
+.next/
+.claude/
+frontend/.next/
+api/node_modules/
+frontend/node_modules/
+.env.local
+.vercel

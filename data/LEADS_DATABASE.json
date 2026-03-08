@@ -1,0 +1,1538 @@
+{
+  "leads": [
+    {
+      "lead_id": "LEAD_001",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Rajesh Kumar",
+      "buyer_phone": "+91-98765-43210",
+      "buyer_email": "rajesh.kumar@example.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala, Bangalore",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "75 lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "3 months",
+        "special_requirements": "Near metro, good schools nearby"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-25T10:00:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_002",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Priya Sharma",
+      "buyer_phone": "+91-98765-43211",
+      "buyer_email": "priya.sharma@example.com",
+      "property_interest": {
+        "location": "560008",
+        "locality": "JP Nagar, Bangalore",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "1.5 crore",
+          "max": "2.5 crore"
+        },
+        "bedrooms": "3BHK Villa",
+        "timeline": "2 months",
+        "special_requirements": "Gated community, swimming pool, gym"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-24T14:30:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_003",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Amit Patel",
+      "buyer_phone": "+91-98765-43212",
+      "buyer_email": "amit.patel@example.com",
+      "property_interest": {
+        "location": "570025",
+        "locality": "Vijayanagar, Mysore",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "80 lakhs",
+          "max": "1.2 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Investment property, good location for commercial"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-23T09:15:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_004",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Anjali Singh",
+      "buyer_phone": "+91-98765-43213",
+      "buyer_email": "anjali.singh@example.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala, Bangalore",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "80 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "1 month",
+        "special_requirements": "Ready to move, high floor, corner plot"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-22T11:45:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_005",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Vikram Desai",
+      "buyer_phone": "+91-98765-43214",
+      "buyer_email": "vikram.desai@example.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram, Mysore",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "40 lakhs",
+          "max": "60 lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "Immediate",
+        "special_requirements": "Close to hospital, rental potential"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-21T16:20:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_006",
+      "status": "available",
+      "quality_tier": "vip",
+      "buyer_name": "Dr. Ramesh Nair",
+      "buyer_phone": "+91-98765-43215",
+      "buyer_email": "dr.ramesh.nair@example.com",
+      "property_interest": {
+        "location": "560008",
+        "locality": "JP Nagar, Bangalore",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "3 crore",
+          "max": "5 crore"
+        },
+        "bedrooms": "4BHK Villa",
+        "timeline": "Immediate (within 2 weeks)",
+        "special_requirements": "High-end finishes, smart home, privacy walls, 24/7 security"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-20T13:00:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null,
+      "background_data": {
+        "occupation": "Senior Consultant - Healthcare",
+        "annual_income": "50+ lakhs",
+        "credit_rating": "Excellent",
+        "payment_method": "Bank financing pre-approved"
+      }
+    },
+    {
+      "lead_id": "LEAD_007",
+      "status": "available",
+      "quality_tier": "vip",
+      "buyer_name": "Meera Kapoor",
+      "buyer_phone": "+91-98765-43216",
+      "buyer_email": "meera.kapoor@example.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala, Bangalore",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "1 crore",
+          "max": "1.5 crore"
+        },
+        "bedrooms": "3BHK Luxury",
+        "timeline": "Immediate",
+        "special_requirements": "Luxury furnishing, home automation, concierge service"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-19T10:30:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null,
+      "background_data": {
+        "occupation": "Business Owner - IT Services",
+        "annual_income": "60+ lakhs",
+        "credit_rating": "Excellent",
+        "payment_method": "Cash + bank financing"
+      }
+    },
+    {
+      "lead_id": "LEAD_008",
+      "status": "available",
+      "quality_tier": "elite",
+      "buyer_name": "Arun Chopra",
+      "buyer_phone": "+91-98765-43217",
+      "buyer_email": "arun.chopra@example.com",
+      "property_interest": {
+        "location": "560008",
+        "locality": "JP Nagar, Bangalore",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "5 crore",
+          "max": "10 crore"
+        },
+        "bedrooms": "5BHK Ultra-Premium",
+        "timeline": "Immediate (ready to sign)",
+        "special_requirements": "Luxury estate, private golf course, vineyards, guest house"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-18T15:45:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null,
+      "background_data": {
+        "occupation": "Corporate Executive - Fortune 500",
+        "annual_income": "100+ lakhs",
+        "credit_rating": "Platinum",
+        "payment_method": "Direct cash + investment portfolio"
+      }
+    },
+    {
+      "lead_id": "LEAD_009",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Suresh Reddy",
+      "buyer_phone": "+91-98765-43218",
+      "buyer_email": "suresh.reddy@example.com",
+      "property_interest": {
+        "location": "570025",
+        "locality": "Vijayanagar, Mysore",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "30 lakhs",
+          "max": "45 lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "6 months",
+        "special_requirements": "Budget property, good location"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-17T12:00:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_010",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Neha Gupta",
+      "buyer_phone": "+91-98765-43219",
+      "buyer_email": "neha.gupta@example.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala, Bangalore",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "60 lakhs",
+          "max": "80 lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "3 months",
+        "special_requirements": "Eco-friendly building, community center"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-16T09:30:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_011",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Shweta Mishra",
+      "buyer_phone": "+91-98765-43220",
+      "buyer_email": "shweta.mishra@example.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram, Mysore",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "80 lakhs",
+          "max": "1.2 crore"
+        },
+        "bedrooms": "3BHK Villa",
+        "timeline": "2 months",
+        "special_requirements": "Garden space, green surroundings"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-15T14:15:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_012",
+      "status": "available",
+      "quality_tier": "elite",
+      "buyer_name": "Karan Malhotra",
+      "buyer_phone": "+91-98765-43221",
+      "buyer_email": "karan.malhotra@example.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala, Bangalore",
+        "property_type": "Commercial",
+        "budget_range": {
+          "min": "10 crore",
+          "max": "20 crore"
+        },
+        "bedrooms": "N/A (Commercial)",
+        "timeline": "Immediate",
+        "special_requirements": "Premium commercial space, high foot traffic location"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-14T11:00:00Z",
+      "redeemed_by": null,
+      "redeemed_date": null,
+      "background_data": {
+        "occupation": "Real Estate Investor/Developer",
+        "annual_income": "Multi-crore",
+        "credit_rating": "Platinum+",
+        "payment_method": "Direct investment capital"
+      }
+    },
+    {
+      "lead_id": "LEAD_1001",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Arjun Reddy",
+      "buyer_phone": "+91-97862-26058",
+      "buyer_email": "arjun.reddy507@gmail.com",
+      "property_interest": {
+        "location": "560067",
+        "locality": "Sadaramangala Industrial Area",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "1 year",
+        "special_requirements": "Gym, Swimming pool"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-21T21:16:30.775Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1002",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Nikhil Sharma",
+      "buyer_phone": "+91-96362-89907",
+      "buyer_email": "nikhil.sharma951@mail.com",
+      "property_interest": {
+        "location": "560025",
+        "locality": "Richmond Town",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply, Road access"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-03T22:03:31.108Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1003",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Deepa Chopra",
+      "buyer_phone": "+91-95136-96321",
+      "buyer_email": "deepa.chopra352@mail.com",
+      "property_interest": {
+        "location": "560038",
+        "locality": "Indiranagar",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "2 months",
+        "special_requirements": "Gym"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-03-03T06:58:55.278Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1004",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Vikram Reddy",
+      "buyer_phone": "+91-96839-11006",
+      "buyer_email": "vikram.reddy329@outlook.com",
+      "property_interest": {
+        "location": "560001",
+        "locality": "Lavelle Road / MG Road",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "6 months",
+        "special_requirements": "Gym"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-24T12:50:32.761Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1005",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Vikram Gupta",
+      "buyer_phone": "+91-97724-50684",
+      "buyer_email": "vikram.gupta800@outlook.com",
+      "property_interest": {
+        "location": "560010",
+        "locality": "Rajajinagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "3 months",
+        "special_requirements": "Corner plot"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-19T17:46:58.966Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1006",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Arun Nair",
+      "buyer_phone": "+91-99843-45804",
+      "buyer_email": "arun.nair486@example.com",
+      "property_interest": {
+        "location": "560003",
+        "locality": "Malleshwaram",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "2 months",
+        "special_requirements": "Gym, Swimming pool"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-23T06:33:39.221Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1007",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Meena Kumar",
+      "buyer_phone": "+91-95235-00958",
+      "buyer_email": "meena.kumar199@example.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "3 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-23T04:19:48.465Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1008",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Meena Kumar",
+      "buyer_phone": "+91-98696-59969",
+      "buyer_email": "meena.kumar456@mail.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "1 month",
+        "special_requirements": "Private pool"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-23T10:05:44.535Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1009",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Shreya Patel",
+      "buyer_phone": "+91-99944-88034",
+      "buyer_email": "shreya.patel446@yahoo.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "6 months",
+        "special_requirements": "Gym, Swimming pool, Parking"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-03-02T02:37:06.198Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1010",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Anjali Chopra",
+      "buyer_phone": "+91-99583-20587",
+      "buyer_email": "anjali.chopra908@outlook.com",
+      "property_interest": {
+        "location": "560080",
+        "locality": "Sadashivanagar",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "1 month",
+        "special_requirements": "Gym, Swimming pool, Parking, Security, Garden"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-26T21:31:52.392Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1011",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Amit Rao",
+      "buyer_phone": "+91-97725-74372",
+      "buyer_email": "amit.rao604@example.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "150.0 Crore",
+          "max": "300.0 Crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "1 month",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-03-02T13:11:34.402Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1012",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Neha Chopra",
+      "buyer_phone": "+91-98453-91754",
+      "buyer_email": "neha.chopra520@example.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "60 Lakhs",
+          "max": "90 Lakhs"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "1 year",
+        "special_requirements": "Gym"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-05T00:45:57.194Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1013",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Divya Sharma",
+      "buyer_phone": "+91-95202-05536",
+      "buyer_email": "divya.sharma530@mail.com",
+      "property_interest": {
+        "location": "560078",
+        "locality": "JP Nagar",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "3 Lakhs",
+          "max": "5 Lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "6 months",
+        "special_requirements": "Private pool, Garden, Parking"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-17T11:08:53.793Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1014",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Pooja Singh",
+      "buyer_phone": "+91-98013-14964",
+      "buyer_email": "pooja.singh7@gmail.com",
+      "property_interest": {
+        "location": "570032",
+        "locality": "Ramakrishna Nagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "2 months",
+        "special_requirements": "Corner plot"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-11T07:36:42.487Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1015",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Rajesh Chopra",
+      "buyer_phone": "+91-99868-43335",
+      "buyer_email": "rajesh.chopra783@outlook.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "90 Lakhs",
+          "max": "130 Lakhs"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "1 year",
+        "special_requirements": "Corner plot"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-14T01:16:46.618Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1016",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Sanjay Rao",
+      "buyer_phone": "+91-95973-22224",
+      "buyer_email": "sanjay.rao768@gmail.com",
+      "property_interest": {
+        "location": "570025",
+        "locality": "Vijayanagar",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "2 Lakhs",
+          "max": "2 Lakhs"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "1 month",
+        "special_requirements": "Private pool, Garden, Parking, Security gate, Gym"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-19T06:46:16.890Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1017",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Sanjay Chopra",
+      "buyer_phone": "+91-98865-35399",
+      "buyer_email": "sanjay.chopra614@mail.com",
+      "property_interest": {
+        "location": "560080",
+        "locality": "Sadashivanagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-24T11:11:25.544Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1018",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Neha Kumar",
+      "buyer_phone": "+91-95367-18482",
+      "buyer_email": "neha.kumar925@gmail.com",
+      "property_interest": {
+        "location": "560010",
+        "locality": "Rajajinagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "3 months",
+        "special_requirements": "Corner plot"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-03-01T22:03:05.201Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1019",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Shreya Kumar",
+      "buyer_phone": "+91-95552-82707",
+      "buyer_email": "shreya.kumar638@example.com",
+      "property_interest": {
+        "location": "560078",
+        "locality": "JP Nagar",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "3 Lakhs",
+          "max": "5 Lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "1 month",
+        "special_requirements": "Private pool, Garden, Parking, Security gate, Gym"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-21T04:57:35.304Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1020",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Divya Gupta",
+      "buyer_phone": "+91-99361-03060",
+      "buyer_email": "divya.gupta79@yahoo.com",
+      "property_interest": {
+        "location": "560066",
+        "locality": "Whitefield",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "3 Lakhs",
+          "max": "5 Lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "1 year",
+        "special_requirements": "Private pool"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-16T18:27:54.257Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1021",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Pooja Mishra",
+      "buyer_phone": "+91-98944-90581",
+      "buyer_email": "pooja.mishra407@gmail.com",
+      "property_interest": {
+        "location": "570002",
+        "locality": "Gokulam Extension, Sri Krishnarajendra Mills",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "2 Lakhs",
+          "max": "3 Lakhs"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "1 month",
+        "special_requirements": "Private pool, Garden, Parking, Security gate"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-18T23:13:56.080Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1022",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Vikram Verma",
+      "buyer_phone": "+91-99993-48101",
+      "buyer_email": "vikram.verma631@yahoo.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "80 Lakhs",
+          "max": "150 Lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "6 months",
+        "special_requirements": "Gym, Swimming pool, Parking"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-08T12:05:55.917Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1023",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Deepa Rao",
+      "buyer_phone": "+91-96646-96153",
+      "buyer_email": "deepa.rao44@yahoo.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "2 Lakhs",
+          "max": "3 Lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "3 months",
+        "special_requirements": "Private pool, Garden, Parking, Security gate, Gym"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-11T23:44:55.526Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1024",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Arun Joshi",
+      "buyer_phone": "+91-96735-77541",
+      "buyer_email": "arun.joshi651@mail.com",
+      "property_interest": {
+        "location": "560078",
+        "locality": "JP Nagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "130.0 Crore",
+          "max": "280.0 Crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-22T01:35:07.570Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1025",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Pooja Rao",
+      "buyer_phone": "+91-98518-51142",
+      "buyer_email": "pooja.rao11@yahoo.com",
+      "property_interest": {
+        "location": "560003",
+        "locality": "Malleshwaram",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "1 month",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-11T14:20:18.975Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1026",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Shreya Rao",
+      "buyer_phone": "+91-99985-78827",
+      "buyer_email": "shreya.rao665@outlook.com",
+      "property_interest": {
+        "location": "560078",
+        "locality": "JP Nagar",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "75 Lakhs",
+          "max": "140 Lakhs"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "1 month",
+        "special_requirements": "Gym, Swimming pool, Parking, Security"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-14T00:32:50.779Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1027",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Anjali Chopra",
+      "buyer_phone": "+91-97198-26330",
+      "buyer_email": "anjali.chopra416@yahoo.com",
+      "property_interest": {
+        "location": "560034",
+        "locality": "Koramangala",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "80 Lakhs",
+          "max": "150 Lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "3 months",
+        "special_requirements": "Gym, Swimming pool, Parking"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-23T19:32:51.104Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1028",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Pooja Kumar",
+      "buyer_phone": "+91-99682-51594",
+      "buyer_email": "pooja.kumar515@mail.com",
+      "property_interest": {
+        "location": "560067",
+        "locality": "Sadaramangala Industrial Area",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "6 months",
+        "special_requirements": "Private pool, Garden"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-18T08:27:39.345Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1029",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Rajesh Verma",
+      "buyer_phone": "+91-95688-34730",
+      "buyer_email": "rajesh.verma189@gmail.com",
+      "property_interest": {
+        "location": "560080",
+        "locality": "Sadashivanagar",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "3 months",
+        "special_requirements": "Gym, Swimming pool, Parking, Security, Garden"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-03-02T22:33:11.040Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1030",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Arjun Kumar",
+      "buyer_phone": "+91-96284-11953",
+      "buyer_email": "arjun.kumar562@outlook.com",
+      "property_interest": {
+        "location": "560080",
+        "locality": "Sadashivanagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-13T12:23:05.483Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1031",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Vikram Gupta",
+      "buyer_phone": "+91-97173-20831",
+      "buyer_email": "vikram.gupta775@example.com",
+      "property_interest": {
+        "location": "560038",
+        "locality": "Indiranagar",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "1 year",
+        "special_requirements": "Gym, Swimming pool, Parking, Security, Garden"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-18T11:54:50.853Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1032",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Rohan Joshi",
+      "buyer_phone": "+91-98144-46874",
+      "buyer_email": "rohan.joshi295@mail.com",
+      "property_interest": {
+        "location": "560080",
+        "locality": "Sadashivanagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "2 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-16T11:19:03.203Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1033",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Sanjay Nair",
+      "buyer_phone": "+91-97865-71068",
+      "buyer_email": "sanjay.nair76@yahoo.com",
+      "property_interest": {
+        "location": "570025",
+        "locality": "Vijayanagar",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "55 Lakhs",
+          "max": "85 Lakhs"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "1 month",
+        "special_requirements": "Gym, Swimming pool"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-10T21:22:01.699Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1034",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Divya Patel",
+      "buyer_phone": "+91-96655-02655",
+      "buyer_email": "divya.patel894@mail.com",
+      "property_interest": {
+        "location": "560038",
+        "locality": "Indiranagar",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "1 month",
+        "special_requirements": "Gym, Swimming pool, Parking"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-18T04:36:43.392Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1035",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Shreya Patel",
+      "buyer_phone": "+91-95599-21809",
+      "buyer_email": "shreya.patel293@gmail.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-28T15:35:01.119Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1036",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Arun Reddy",
+      "buyer_phone": "+91-95351-76628",
+      "buyer_email": "arun.reddy582@outlook.com",
+      "property_interest": {
+        "location": "560010",
+        "locality": "Rajajinagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "2 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply, Road access"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-03-03T22:48:02.869Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1037",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Anjali Rao",
+      "buyer_phone": "+91-95400-97411",
+      "buyer_email": "anjali.rao503@gmail.com",
+      "property_interest": {
+        "location": "560102",
+        "locality": "Ambalipura / HSR Layout",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "3 months",
+        "special_requirements": "Corner plot"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-28T01:26:14.804Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1038",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Rohan Reddy",
+      "buyer_phone": "+91-98596-07694",
+      "buyer_email": "rohan.reddy126@outlook.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "6 months",
+        "special_requirements": "Private pool"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-17T15:26:05.169Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1039",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Pooja Singh",
+      "buyer_phone": "+91-96718-89144",
+      "buyer_email": "pooja.singh649@gmail.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "2 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-16T08:54:05.136Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1040",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Pooja Joshi",
+      "buyer_phone": "+91-95496-43576",
+      "buyer_email": "pooja.joshi236@outlook.com",
+      "property_interest": {
+        "location": "560003",
+        "locality": "Malleshwaram",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-28T09:38:48.291Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1041",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Arjun Joshi",
+      "buyer_phone": "+91-97851-94747",
+      "buyer_email": "arjun.joshi482@yahoo.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "60 Lakhs",
+          "max": "90 Lakhs"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "1 month",
+        "special_requirements": "Gym, Swimming pool, Parking, Security"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-10T09:37:30.112Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1042",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Arun Patel",
+      "buyer_phone": "+91-99721-22760",
+      "buyer_email": "arun.patel652@outlook.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "60 Lakhs",
+          "max": "90 Lakhs"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "3 months",
+        "special_requirements": "Gym, Swimming pool"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-09T04:54:07.553Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1043",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Pooja Sharma",
+      "buyer_phone": "+91-98270-99529",
+      "buyer_email": "pooja.sharma313@mail.com",
+      "property_interest": {
+        "location": "570024",
+        "locality": "Bannimantap",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "2 months",
+        "special_requirements": "Gym"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-02-14T02:49:14.319Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1044",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Arun Rao",
+      "buyer_phone": "+91-95061-45541",
+      "buyer_email": "arun.rao270@mail.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "2 months",
+        "special_requirements": "Gym, Swimming pool, Parking"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-10T04:50:25.214Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1045",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Rajesh Sharma",
+      "buyer_phone": "+91-96562-99004",
+      "buyer_email": "rajesh.sharma704@gmail.com",
+      "property_interest": {
+        "location": "570009",
+        "locality": "Saraswathipuram",
+        "property_type": "Apartment",
+        "budget_range": {
+          "min": "60 Lakhs",
+          "max": "90 Lakhs"
+        },
+        "bedrooms": "4BHK",
+        "timeline": "2 months",
+        "special_requirements": "Gym, Swimming pool, Parking, Security"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-23T21:37:05.191Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1046",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Divya Chopra",
+      "buyer_phone": "+91-96426-43143",
+      "buyer_email": "divya.chopra488@gmail.com",
+      "property_interest": {
+        "location": "570025",
+        "locality": "Vijayanagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "80 Lakhs",
+          "max": "120 Lakhs"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "6 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply, Road access"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-27T09:59:04.853Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1047",
+      "status": "available",
+      "quality_tier": "targeted",
+      "buyer_name": "Priya Kumar",
+      "buyer_phone": "+91-98635-12948",
+      "buyer_email": "priya.kumar598@example.com",
+      "property_interest": {
+        "location": "560038",
+        "locality": "Indiranagar",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "1 month",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance, Water supply, Road access"
+      },
+      "interest_level": "cold",
+      "created_date": "2026-02-15T19:21:27.473Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1048",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Sanjay Rao",
+      "buyer_phone": "+91-98555-32598",
+      "buyer_email": "sanjay.rao655@yahoo.com",
+      "property_interest": {
+        "location": "560001",
+        "locality": "Lavelle Road / MG Road",
+        "property_type": "Plot",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "N/A (Land)",
+        "timeline": "2 months",
+        "special_requirements": "Corner plot, Good frontage, Legal clearance"
+      },
+      "interest_level": "warm",
+      "created_date": "2026-03-01T10:36:47.176Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1049",
+      "status": "available",
+      "quality_tier": "premium",
+      "buyer_name": "Neha Nair",
+      "buyer_phone": "+91-96642-79031",
+      "buyer_email": "neha.nair669@yahoo.com",
+      "property_interest": {
+        "location": "570025",
+        "locality": "Vijayanagar",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "2 Lakhs",
+          "max": "2 Lakhs"
+        },
+        "bedrooms": "3BHK",
+        "timeline": "2 months",
+        "special_requirements": "Private pool, Garden"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-05T07:20:18.097Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    },
+    {
+      "lead_id": "LEAD_1050",
+      "status": "available",
+      "quality_tier": "basic",
+      "buyer_name": "Priya Joshi",
+      "buyer_phone": "+91-95043-39447",
+      "buyer_email": "priya.joshi159@outlook.com",
+      "property_interest": {
+        "location": "560099",
+        "locality": "Ramasagara",
+        "property_type": "Villa",
+        "budget_range": {
+          "min": "50 lakhs",
+          "max": "1 crore"
+        },
+        "bedrooms": "2BHK",
+        "timeline": "1 year",
+        "special_requirements": "Private pool, Garden, Parking"
+      },
+      "interest_level": "hot",
+      "created_date": "2026-02-16T08:35:08.196Z",
+      "redeemed_by": null,
+      "redeemed_date": null
+    }
+  ],
+  "summary": {
+    "total_leads": 12,
+    "by_quality": {
+      "basic": 2,
+      "targeted": 3,
+      "premium": 3,
+      "vip": 2,
+      "elite": 2
+    },
+    "by_location": {
+      "560008": 3,
+      "560034": 4,
+      "570009": 3,
+      "570025": 2
+    },
+    "by_property_type": {
+      "Apartment": 6,
+      "Villa": 3,
+      "Plot": 1,
+      "Commercial": 1
+    }
+  }
+}
